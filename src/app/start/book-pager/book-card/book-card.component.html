@@ -1,0 +1,15 @@
+<article class="book-card grid items-center fb"
+         [ngClass]="{'book-card-shape-l shadow-l': pageDirection === 'left',
+                     'book-card-shape-r shadow-r': pageDirection === 'right',
+                     'book-card-shape-m shadow-m': isMobile,
+                     'pointer': !isMobile,
+                     'hidden': rightHidden }"
+        (click)="bookCardClick($event)" #bookCard>
+  <div class="book-card-name c2 r2 flex flex-center hover">{{ bookInfo.bookName }}</div>
+  <div class="book-card-short c2 r3 self-start hover">{{ bookInfo.bookShort }}</div>
+  <div class="book-card-number c2 r4 self-end">{{ bookInfo.bookId }}</div>
+  <div class="book-card-testament c2 r5">{{ bookInfo.bookTestament | testament }}</div>
+  <div class="full book-card-bg" [ngClass]="{'book-card-shape-l': pageDirection === 'left',
+                                             'book-card-shape-r': pageDirection === 'right',
+                                             'book-card-shape-m': isMobile}"></div>
+</article>

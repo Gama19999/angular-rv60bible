@@ -1,0 +1,7 @@
+.verse-item {
+  white-space: pre-wrap;
+  text-align: justify;
+  display: block;
+  width: 100%;
+  max-height: 90px;
+}

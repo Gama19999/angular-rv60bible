@@ -1,0 +1,22 @@
+.start {
+  grid-template-columns: 5% 1fr 5%;
+  grid-template-rows: 15% 1fr 10%;
+}
+.start-top { gap: 0 1rem; }
+.start-appname {
+  text-transform: uppercase;
+  font-size: 4rem;
+}
+.start-iasd-logo {
+  width: 4rem;
+  filter: drop-shadow(3px 3px 0px var(--white-txt));
+}
+.start-controls {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+}
+.pi { font-size: 1.2rem; }
+@media screen and (max-width: 1024px) { /***** SMALL SCREEN VIEW *****/
+  .start { grid-template-columns: 10px 1fr 10px; }
+  .start-appname { font-size: 3.5rem; }
+}

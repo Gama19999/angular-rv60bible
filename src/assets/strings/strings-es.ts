@@ -1,0 +1,20 @@
+export const strings_es = {
+  start1: 'santa biblia',
+  start2: 'antiguo testamento',
+  start3: 'nuevo testamento',
+  btn1: 'libros',
+  btn2: 'capítulos',
+  btn3: 'ajustes',
+  btn4: 'info',
+  info1: 'programador',
+  info2: 'correo electrónico',
+  info3: 'sitio web',
+  info4: 'iglesia adventista del 7° día',
+  settings1: 'ajustes generales',
+  settings2: 'pantalla completa',
+  settings3: 'cerrar aplicación',
+  author: 'asis gamaliel rios serrano',
+  email: 'mailto://gama.rios0110@gmail',
+  site: 'https://serial30.ovh/projects/rv60bible',
+  year: '2025'
+};

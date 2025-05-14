@@ -1,0 +1,66 @@
+.fade {
+  z-index: 20;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.fade-logo {
+  width: 20%;
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  /* duration | easing-function | delay | iteration-count | direction | fill-mode | play-state | name */
+  animation: 1800ms cubic-bezier(0.47,1.94,0.31,0.8) 800ms 1 normal both running logoIn;
+}
+.fade-name {
+  position: absolute;
+  left: 0;
+  bottom: 10%;
+  width: 100%;
+  color: var(--white-txt);
+  font-size: 3rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  text-align: center;
+  animation: 4s cubic-bezier(0.47,1.94,0.31,0.8) 800ms 1 normal both running nameIn;
+}
+.fade-line {
+  position: absolute;
+  left: 25%;
+  bottom: 8%;
+  width: 50%;
+  border: 5px solid var(--white-txt);
+  border-radius: 5px;
+  animation: 4s cubic-bezier(0.47,1.94,0.31,0.8) 800ms 1 normal both running nameIn;
+}
+@media screen and (max-width: 1300px) { /***** MEDIUM SCREEN VIEW *****/
+  .fade-name { font-size: 2rem; }
+  .fade-line { left: 28%; width: 44%; }
+}
+@media screen and (max-width: 1024px) { /***** SMALL SCREEN VIEW *****/
+  .fade-logo {
+    width: 50%;
+    top: 20%;
+    left: 25%;
+  }
+  .fade-name { font-size: 1.3rem; }
+  .fade-line {
+    width: 90%;
+    left: 5%;
+    border-width: 2px;
+  }
+}
+@keyframes logoIn {
+  0% {
+    transform: translateY(25%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes nameIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}

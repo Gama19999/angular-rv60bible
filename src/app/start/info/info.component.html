@@ -1,0 +1,16 @@
+<aside class="info modal full flex flex-center">
+  <div class="modal-content grid items-center">
+    <i class="pi pi-times c3 r1" [ngClass]="{'pointer': !isMobile}" (click)="closeInfo()"></i>
+    <div class="info-app-cont full flex flex-center fe c2 r1">
+      {{ appName }}<img src="{{ iasd_logo }}" alt="iasd_logo" class="info-app-logo">
+    </div>
+    <div class="c2"></div>
+    <div class="info-link fn c2">{{ s.info1 }}</div>
+    <div class="info-link fn c2"><i class="pi pi-user"></i> {{ s.author }}</div>
+    <div class="info-link fn c2"><i class="pi pi-at"></i>&nbsp;<a href="{{ s.email }}">{{ s.info2 }}</a></div>
+    <div class="info-link fn c2"><i class="pi pi-globe"></i>&nbsp;<a href="{{ s.site }}" target="_blank">{{ s.info3 }}</a></div>
+    <div class="c2"></div>
+    <div class="info-link fl c2"><i class="pi pi-tag"></i>&nbsp;{{ version }}</div>
+    <div class="info-link fl c2">{{ s.info4 }} | {{ s.year }}</div>
+  </div>
+</aside>

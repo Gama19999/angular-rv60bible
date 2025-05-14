@@ -1,0 +1,18 @@
+<nav class="book-pager flex flex-center">
+  <app-book-card [book-info]="currentLeft"
+                 [page-direction]="'left'"
+                 [is-mobile]="isMobile"
+                 (page-clicked)="onPageChange($event)"
+                 [ngClass]="{'on-hide': inTransition}"></app-book-card>
+  <app-book-card [book-info]="currentRight"
+                 [page-direction]="'right'"
+                 [is-mobile]="isMobile"
+                 (page-clicked)="onPageChange($event)"
+                 [ngClass]="{'on-hide': inTransition}"></app-book-card>
+  <ng-container *ngIf="!isMobile">
+    <app-book-card [page-direction]="'left'" [is-mobile]="isMobile" class="pager-behind behind-1 gap-l-1"></app-book-card>
+    <app-book-card [page-direction]="'right'" [is-mobile]="isMobile" class="pager-behind behind-1 gap-r-1"></app-book-card>
+    <app-book-card [page-direction]="'left'" [is-mobile]="isMobile" class="pager-behind behind-2 gap-l-2"></app-book-card>
+    <app-book-card [page-direction]="'right'" [is-mobile]="isMobile" class="pager-behind behind-2 gap-r-2"></app-book-card>
+  </ng-container>
+</nav>

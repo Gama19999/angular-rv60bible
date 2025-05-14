@@ -1,0 +1,5 @@
+<nav class="chapter-list grid items-center overflow-y fb f-sh-b">
+  @for (ch of chapters; track $index) {
+    <div class="chapter-list-item" [ngClass]="{'pointer': !isMobile}" (click)="chClick($index + 1)">{{ ch }}</div>
+  }
+</nav>

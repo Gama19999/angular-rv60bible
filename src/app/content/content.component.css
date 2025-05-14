@@ -1,0 +1,49 @@
+.content {
+  grid-template-columns: 5% 1fr 5%;
+  grid-template-rows: repeat(2, 5%) 1fr 5%;
+}
+.content-top { gap: 0 1rem; }
+.content-appname {
+  text-transform: uppercase;
+  font-size: 1.8rem;
+}
+.content-iasd-logo {
+  width: 2rem;
+  filter: drop-shadow(3px 3px 0px var(--white-txt));
+}
+.content-book {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  align-items: center;
+  gap: 0 3rem;
+}
+.content-book-indicator {
+  background: url("../../assets/images/coal.webp") 50% 50% / cover no-repeat;
+  padding: 0.2rem 0.5rem;
+  color: var(--white-pure);
+  font-size: 1.2rem;
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px 0 var(--shadow);
+}
+.self-start { justify-self: start; }
+.self-end { justify-self: end; }
+.content-controls {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+}
+@media screen and (max-width: 1300px) { /***** MEDIUM SCREEN VIEW *****/
+  .content { grid-template-rows: repeat(2, 5%) 1fr 7%; }
+  .content-appname { font-size: 1.2rem; }
+  .content-iasd-logo { width: 1.5rem; }
+  .content-book-indicator { font-size: 1rem; }
+}
+@media screen and (max-width: 1024px) { /***** SMALL SCREEN VIEW *****/
+  .content {
+    grid-template-columns: 10px 1fr 10px;
+    grid-template-rows: repeat(2, 5%) 1fr 7%;
+  }
+  .content-book {
+    display: flex;
+    justify-content: space-evenly;
+  }
+}

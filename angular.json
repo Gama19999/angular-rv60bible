@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "RV1960Bible": {
+    "angular-rv60bible": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/rv1960-bible",
+            "outputPath": "dist/angular-rv60bible",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -33,7 +33,13 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/assets/icons/",
+                "output": "/media/icons/"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets/api/",
+                "output": "/api/"
               }
             ],
             "styles": [
@@ -42,7 +48,7 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
+            "electron": {
               "budgets": [
                 {
                   "type": "initial",
@@ -55,24 +61,55 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.electron.ts"
+                }
+              ]
+            },
+            "web": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.web.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "outputHashing": "all"
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "electron"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": {
-              "buildTarget": "RV1960Bible:build:production"
+            "electron": {
+              "buildTarget": "angular-rv60bible:build:electron"
+            },
+            "web": {
+              "buildTarget": "angular-rv60bible:build:web"
             },
             "development": {
-              "buildTarget": "RV1960Bible:build:development"
+              "buildTarget": "angular-rv60bible:build:development"
             }
           },
           "defaultConfiguration": "development"

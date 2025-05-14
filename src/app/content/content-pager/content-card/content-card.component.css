@@ -1,0 +1,42 @@
+.content-card {
+  grid-template-rows: 10px repeat(10, 1fr) 10px;
+  transition: opacity ease-in-out;
+}
+.content-card-dimension {
+  width: 630px;
+  height: 690px;
+  max-height: 690px;
+  overflow-y: scroll;
+}
+.cols-l { grid-template-columns: 30px 1fr 10px; }
+.cols-r { grid-template-columns: 10px 1fr 30px; }
+.cols-m { grid-template-columns: 10px 1fr 10px; }
+.content-card-bg {
+  background: url("../../../../assets/images/sheet.webp") 50% 50% / 100% 100% no-repeat;
+  grid-column: 1 / 4;
+  grid-row: 1 / 13;
+  opacity: 0.8;
+  z-index: -1;
+}
+.content-card-shape-l { border-radius: 10px 0  0 10px; }
+.content-card-shape-r { border-radius: 0 10px 10px 0; }
+.content-card-shape-m { border-radius: 10px; }
+.shadow-l { box-shadow: -3px 3px 5px 0 var(--shadow); }
+.shadow-r { box-shadow: 3px 3px 5px 0 var(--shadow); }
+.shadow-m { box-shadow: -3px -3px 5px 0 var(--shadow), 3px 3px 5px 0 var(--shadow); }
+@media screen and (max-width: 1300px) { /***** MEDIUM SCREEN VIEW *****/
+  .content-card { grid-template-rows: 10px repeat(8, 1fr) 10px; }
+  .content-card-bg { grid-row: 1 / 11; }
+  .content-card-dimension {
+    width: 500px;
+    height: 540px;
+    max-height: 540px;
+  }
+}
+@media screen and (max-width: 1024px) { /***** SMALL SCREEN VIEW *****/
+  .content-card-dimension {
+    width: 400px;
+    height: 600px;
+    max-height: 600px;
+  }
+}

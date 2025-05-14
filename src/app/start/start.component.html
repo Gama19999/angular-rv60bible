@@ -1,0 +1,17 @@
+<section class="start full grid items-center">
+  <div class="full flex flex-center start-top c2 r1">
+    <div class="start-appname fe f-sh-w">{{ s.start1 }}</div>
+    <img src="{{ iasd_logo }}" alt="iasd_logo" class="start-iasd-logo">
+  </div>
+  <div class="c2 r2 flex flex-center">
+    <app-book-pager></app-book-pager>
+  </div>
+  <div class="start-controls full grid items-center c2 r3">
+    <i class="pi pi-crown btn c1 r1" [ngClass]="{'pointer': !isMobile}" (click)="toggleInfo()"></i>
+    <em class="btn-label on-hide fb c1 r1">{{ s.btn4 }}</em>
+    <i class="pi pi-cog btn c3 r1" [ngClass]="{'pointer': !isMobile}" (click)="toggleSettings()"></i>
+    <em class="btn-label on-hide fb c3 r1">{{ s.btn3 }}</em>
+  </div>
+  <ng-container *ngComponentOutlet="infoComp"></ng-container>
+  <ng-container *ngComponentOutlet="settingsComp; inputs: {'view-name': 'start'}"></ng-container>
+</section>

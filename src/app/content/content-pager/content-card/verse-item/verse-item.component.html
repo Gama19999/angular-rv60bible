@@ -1,0 +1,9 @@
+<span class="verse-item fn"
+      [ngClass]="{'mb': withMB}"
+      [attr.data-verse-id]="verseId"
+      [attr.data-book-id]="bookId"
+      [attr.data-chapter]="chapterNum"
+      [attr.data-verse]="verseNum"
+      [attr.data-verse-len]="verseTxt.length">
+  <b>{{ verseNum }}</b>&nbsp;{{ verseTxt }}
+</span>

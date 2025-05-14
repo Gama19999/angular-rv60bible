@@ -1,0 +1,20 @@
+<aside class="settings modal full flex flex-center">
+  <div class="modal-content grid items-center">
+    <i class="pi pi-times c3 r1" [ngClass]="{'pointer': !isMobile}" (click)="closeSettings()"></i>
+    <div class="settings-title fb c2 r1">{{ s.settings1 }}</div>
+    <div class="c2"></div>
+    <ng-container *ngIf="isElectron">
+      <div class="settings-config fn c2" (click)="toggleScreenMode()">
+        {{ s.settings2 }}&nbsp;&nbsp;
+        <i class="btn pi" [ngClass]="{'pi-arrow-up-right-and-arrow-down-left-from-center': !isFullScreen,
+                                'pi-arrow-down-left-and-arrow-up-right-to-center': isFullScreen,
+                                'pointer': !isMobile}"></i>
+      </div>
+      <div class="c2"></div>
+      <div class="settings-config fn c2" (click)="exitApp()">
+        {{ s.settings3 }}&nbsp;&nbsp;&nbsp;<i class="btn pi pi-sign-out" [ngClass]="{'pointer': !isMobile}"></i>
+      </div>
+      <div class="c2"></div>
+    </ng-container>
+  </div>
+</aside>

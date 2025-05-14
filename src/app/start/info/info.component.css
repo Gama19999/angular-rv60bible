@@ -1,0 +1,7 @@
+.info-app-cont {
+  gap: 0 1rem;
+  text-transform: capitalize;
+}
+.info-app-logo { width: 1.7rem; }
+.info-link { text-transform: capitalize; }
+.info-link.fl { font-size: 0.85rem; }
