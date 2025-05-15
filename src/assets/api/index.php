@@ -1,4 +1,9 @@
 <?php
+header("Access-Control-Allow-Origin: *"); // Allow all origins (or specify exact origin)
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type");
+
+
 require 'util.php';
 
 /**

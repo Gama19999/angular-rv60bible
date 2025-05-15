@@ -6,6 +6,7 @@ export const strings_es = {
   btn2: 'capítulos',
   btn3: 'ajustes',
   btn4: 'info',
+  verse1: 'favorito',
   info1: 'programador',
   info2: 'correo electrónico',
   info3: 'sitio web',

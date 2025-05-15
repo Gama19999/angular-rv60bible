@@ -1,4 +1,18 @@
-.verse-item {
+.verse-item { grid-template-rows: 100%; }
+.cols-l { grid-template-columns: 30px 1fr; }
+.cols-r { grid-template-columns: 1fr 30px; }
+.pos-l { grid-column: 1; }
+.pos-r { grid-column: 2; }
+.verse-item-menu { grid-template-columns: 100%; }
+.btn {
+  font-size: 0.5rem;
+  box-shadow: 0 0 5px 1px var(--shadow);
+  padding: 4px;
+  letter-spacing: 1px;
+}
+.btn:active { box-shadow: 0 0 5px 0 var(--shadow); }
+.btn-label { bottom: 20px; }
+.verse-item-txt {
   white-space: pre-wrap;
   text-align: justify;
   display: block;

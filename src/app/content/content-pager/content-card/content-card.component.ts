@@ -15,9 +15,11 @@ import { firstOfCh, nextOfCh, prevOfCh } from '../../../models/verse-request.tem
   styleUrl: './content-card.component.css'
 })
 export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
-  private updVersesSubs: Subscription | undefined;
-  private verses: VerseData[] = [];
+  private cpcSubs: Subscription | undefined;
   private chListSubs: Subscription | undefined;
+  private vdSubs: Subscription | undefined;
+  private tmpSubs: Subscription | undefined;
+  private verses: VerseData[] = [];
   private xDown: number | undefined;
   private yDown: number | undefined;
   protected rightHidden: boolean = false;
@@ -25,7 +27,7 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input('page-direction') pageDirection!: string;
   @Input('is-mobile') isMobile: boolean = false;
   @Input('has-content') hasContent: boolean = false;
-  viewArr: {verse: VerseData, withMB: boolean}[] = [];
+  viewArr: {verse: VerseData, withMarginB: boolean}[] = [];
 
   constructor(private verseSrv: VerseService, private popupSrv: PopupService) {}
 
@@ -33,12 +35,13 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isMobile && this.pageDirection === 'right') this.rightHidden = true;
     if (!this.hasContent) return;
     this.reloadVerses();
-    this.updVersesSubs = this.verseSrv.contentPageChange.subscribe(() => this.reloadVerses());
+    this.cpcSubs = this.verseSrv.contentPageChange.subscribe(() => this.reloadVerses());
     this.chListSubs = this.popupSrv.chListClosed.subscribe(cc => this.handleChListChange(cc));
   }
 
   private reloadVerses() {
-    this.verseSrv.versesPromise?.then(data => {
+    this.vdSubs = this.verseSrv.verseData.subscribe(data => {
+      if (!data.length) return;
       if (this.isMobile) { this.verses = data; return; }
       switch (this.pageDirection) {
         case 'left': this.verses = data.slice(0, environment.fetchLimit / 2); break;
@@ -50,12 +53,12 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private fillViewArr() {
     this.viewArr = [];
-    let needMB;
+    let needMarginB;
     for (let vi = 0; vi < this.verses.length; vi++) {
-      needMB = vi < this.verses.length - 1 ?
-               environment.fetchLimit === 16 ? this.verses[vi].verseTxt.length > 140 && this.verses[vi+1].verseTxt.length > 115 :
+      needMarginB = vi < this.verses.length - 1 ?
+               environment.fetchLimit === 16 ? this.verses[vi].verseTxt.length > 130 && this.verses[vi+1].verseTxt.length > 115 :
                this.verses[vi].verseTxt.length > 160 && this.verses[vi+1].verseTxt.length > 160 : false;
-      this.viewArr.push({verse: this.verses[vi], withMB: needMB});
+      this.viewArr.push({verse: this.verses[vi], withMarginB: needMarginB});
     }
   }
 
@@ -69,8 +72,8 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.contentCardEl.nativeElement.addEventListener('touchmove', this.touchMove, false);
   }
 
-  contentCardClick() {
-    if (!this.isMobile) this.emitPageChange();
+  contentCardClick(evt: Event) {
+    if (!this.isMobile && (<HTMLElement> evt.target).tagName !== 'I') this.emitPageChange();
   }
 
   private emitPageChange(dir: string = this.pageDirection) {
@@ -81,7 +84,9 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
       const last = this.verses[this.verses.length - 1];
       this.verseSrv.loadVersesOn(nextOfCh(last.bookId, last.chapterNum, last.verseNum));
     }
-    this.verseSrv.versesPromise?.then(data => { if (data.length) this.verseSrv.contentPageChange.next(); });
+    this.tmpSubs = this.verseSrv.verseData.subscribe(data => {
+      if (data.length) this.verseSrv.contentPageChange.next();
+    });
   }
 
   private touchStart = (evt: TouchEvent) => {
@@ -105,7 +110,9 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.contentCardEl.nativeElement.removeEventListener('touchstart', this.touchStart, false);
     this.contentCardEl.nativeElement.removeEventListener('touchmove', this.touchMove, false);
-    this.updVersesSubs?.unsubscribe();
+    this.cpcSubs?.unsubscribe();
     this.chListSubs?.unsubscribe();
+    this.vdSubs?.unsubscribe();
+    this.tmpSubs?.unsubscribe();
   }
 }

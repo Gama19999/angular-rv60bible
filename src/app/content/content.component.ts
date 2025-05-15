@@ -38,19 +38,18 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (!this.bookSrv.booksPromise) this.router.navigate(['/'], {replaceUrl: true});
     this.completeBookData();
     this.verseSrv.loadVersesOn(firstOfCh(this.bookInfo.bookId, this.currentCh));
     this.chListSubs = this.popupSrv.chListClosed.subscribe(cc => this.handleChListChange(cc));
   }
 
   private completeBookData() {
-    this.bookSrv.booksPromise?.then(data => {
+    if (this.bookSrv.booksData.length) {
       const idx = +this.bookInfo.bookId - 1;
-      this.bookInfo.bookName = data[idx].bookName;
-      this.bookInfo.bookTestament = data[idx].bookTestament;
-      this.bookInfo.bookChCount = data[idx].bookChCount;
-    });
+      this.bookInfo.bookName = this.bookSrv.booksData[idx].bookName;
+      this.bookInfo.bookTestament = this.bookSrv.booksData[idx].bookTestament;
+      this.bookInfo.bookChCount = this.bookSrv.booksData[idx].bookChCount;
+    } else this.router.navigate(['/'], {replaceUrl: true});
   }
 
   private handleChListChange(cc: ChapterChange) {

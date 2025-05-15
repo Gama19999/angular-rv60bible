@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription} from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { strings_es } from '../../assets/strings/strings-es';
 import { environment } from '../../environments/environment';
-import { BookService } from '../services/book.service';
 import { PopupService } from '../services/popup.service';
 import { InfoComponent } from './info/info.component';
 import { SettingsComponent } from '../shared/settings/settings.component';
@@ -25,10 +24,9 @@ export class StartComponent implements OnInit, OnDestroy {
   infoComp: any;
   settingsComp: any;
 
-  constructor(private bookSrv: BookService, private popupSrv: PopupService) {}
+  constructor(private popupSrv: PopupService) {}
 
   ngOnInit() {
-    this.bookSrv.loadAllBooks();
     this.infoStateSubs = this.popupSrv.infoClosed.subscribe(() => this.toggleInfo());
     this.settingsStateSubs = this.popupSrv.settingsClosed.subscribe(() => this.toggleSettings());
   }

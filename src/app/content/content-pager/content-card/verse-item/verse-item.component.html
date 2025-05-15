@@ -1,9 +1,17 @@
-<span class="verse-item fn"
-      [ngClass]="{'mb': withMB}"
-      [attr.data-verse-id]="verseId"
-      [attr.data-book-id]="bookId"
-      [attr.data-chapter]="chapterNum"
-      [attr.data-verse]="verseNum"
-      [attr.data-verse-len]="verseTxt.length">
+<div class="verse-item grid" [ngClass]="{'cols-l': direction === 'left', 'cols-r': direction === 'right'}">
+  <div class="verse-item-menu grid items-center r1" [ngClass]="{'pos-l': direction === 'left', 'pos-r': direction === 'right'}">
+    <i class="pi btn c1 r1"
+       [ngClass]="{'pi-bookmark': !isFavourite, 'pi-bookmark-fill': isFavourite}"
+       (click)="setFavourite()"></i>
+    <em class="btn-label on-hide fb c1 r1" [ngStyle]="{'left.px': direction === 'left' ? 15 : -14}">{{ s.verse1 }}</em>
+  </div>
+  <span class="verse-item-txt fn r1"
+        [ngClass]="{'mb': withMarginB}"
+        [attr.data-verse-id]="verseId"
+        [attr.data-book-id]="bookId"
+        [attr.data-chapter]="chapterNum"
+        [attr.data-verse]="verseNum"
+        [attr.data-verse-len]="verseTxt.length">
   <b>{{ verseNum }}</b>&nbsp;{{ verseTxt }}
 </span>
+</div>
