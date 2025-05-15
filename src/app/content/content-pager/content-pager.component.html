@@ -1,16 +1,12 @@
 <nav class="content-pager flex flex-center">
   <app-content-card [page-direction]="'left'"
-                    [is-mobile]="isMobile"
                     [has-content]="true"
                     [ngClass]="{'on-hide': inTransition}"></app-content-card>
   <app-content-card [page-direction]="'right'"
-                    [is-mobile]="isMobile"
                     [has-content]="true"
                     [ngClass]="{'on-hide': inTransition}"></app-content-card>
-  <ng-container *ngIf="!isMobile">
-    <app-content-card [page-direction]="'left'" [is-mobile]="isMobile" class="pager-behind behind-1 gap-l-1"></app-content-card>
-    <app-content-card [page-direction]="'right'" [is-mobile]="isMobile" class="pager-behind behind-1 gap-r-1"></app-content-card>
-    <app-content-card [page-direction]="'left'" [is-mobile]="isMobile" class="pager-behind behind-2 gap-l-2"></app-content-card>
-    <app-content-card [page-direction]="'right'" [is-mobile]="isMobile" class="pager-behind behind-2 gap-r-2"></app-content-card>
-  </ng-container>
+  <app-content-card [page-direction]="'left'" class="pager-behind behind-1 gap-l-1"></app-content-card>
+  <app-content-card [page-direction]="'right'" class="pager-behind behind-1 gap-r-1"></app-content-card>
+  <app-content-card [page-direction]="'left'" class="pager-behind behind-2 gap-l-2"></app-content-card>
+  <app-content-card [page-direction]="'right'" class="pager-behind behind-2 gap-r-2"></app-content-card>
 </nav>

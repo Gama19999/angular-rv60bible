@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { environment } from '../../../environments/environment';
 import { BookService } from '../../services/book.service';
 import { BookData } from '../../models/book-data.interface';
 import { BookPageChange } from '../../models/book-page-change.interface';
@@ -14,7 +13,6 @@ import { BookPageChange } from '../../models/book-page-change.interface';
 export class BookPagerComponent implements OnInit {
   currentLeft: BookData;
   currentRight: BookData;
-  isMobile: boolean = environment.platform === 'mobile';
   inTransition: boolean = false;
 
   constructor(private bookSrv: BookService) {

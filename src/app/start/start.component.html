@@ -7,9 +7,9 @@
     <app-book-pager></app-book-pager>
   </div>
   <div class="start-controls full grid items-center c2 r3">
-    <i class="pi pi-crown btn c1 r1" [ngClass]="{'pointer': !isMobile}" (click)="toggleInfo()"></i>
+    <i class="pi pi-crown btn c1 r1 pointer" (click)="toggleInfo()"></i>
     <em class="btn-label on-hide fb c1 r1">{{ s.btn4 }}</em>
-    <i class="pi pi-cog btn c3 r1" [ngClass]="{'pointer': !isMobile}" (click)="toggleSettings()"></i>
+    <i class="pi pi-cog btn c3 r1 pointer" (click)="toggleSettings()"></i>
     <em class="btn-label on-hide fb c3 r1">{{ s.btn3 }}</em>
   </div>
   <ng-container *ngComponentOutlet="infoComp"></ng-container>

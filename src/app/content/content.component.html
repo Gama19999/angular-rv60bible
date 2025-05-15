@@ -11,14 +11,14 @@
     <app-content-pager></app-content-pager>
   </div>
   <div class="content-controls full grid items-center c2 r4">
-    <i class="pi pi-book btn c1 r1"  [ngClass]="{'pointer': !isMobile}" (click)="toBooks()"></i>
+    <i class="pi pi-book btn c1 r1 pointer" (click)="toBooks()"></i>
     <em class="btn-label on-hide fb c1 r1">{{ s.btn1 }}</em>
-    <i class="pi btn pointer c2 r1"
-       [ngClass]="{'pi-sort-amount-up': !chListOpen, 'pi-sort-amount-down': chListOpen, 'pointer': !isMobile}"
+    <i class="pi btn pointer c2 r1 pointer"
+       [ngClass]="{'pi-sort-amount-up': !chListOpen, 'pi-sort-amount-down': chListOpen}"
        (click)="toggleChapterList()"></i>
     <em class="btn-label on-hide fb c2 r1">{{ s.btn2 }}</em>
     <ng-container *ngComponentOutlet="chListComp; inputs: {'book-id': bookInfo.bookId, 'ch-count': bookInfo.bookChCount}"></ng-container>
-    <i class="pi pi-cog btn c3 r1" [ngClass]="{'pointer': !isMobile}"></i>
+    <i class="pi pi-cog btn c3 r1 pointer"></i>
     <em class="btn-label on-hide fb c3 r1">{{ s.btn3 }}</em>
   </div>
 </section>

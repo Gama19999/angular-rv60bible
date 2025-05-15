@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { strings_es } from '../../../assets/strings/strings-es';
-import { environment } from '../../../environments/environment';
 import { PopupService } from '../../services/popup.service';
 
 @Component({
@@ -13,8 +12,6 @@ import { PopupService } from '../../services/popup.service';
 export class SettingsComponent implements OnInit {
   protected readonly s = strings_es;
   @Input('view-name') viewName!: string;
-  isMobile: boolean = environment.platform === 'mobile';
-  isElectron: boolean = environment.platform === 'electron';
   isFullScreen!: boolean;
 
   constructor(private popupSrv: PopupService) {}

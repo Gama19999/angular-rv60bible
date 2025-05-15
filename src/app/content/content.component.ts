@@ -23,7 +23,6 @@ export class ContentComponent implements OnInit, OnDestroy {
   private chListSubs: Subscription | undefined;
   protected readonly s = strings_es;
   iasd_logo: string = environment.icons + 'iasd_black.webp';
-  isMobile: boolean = environment.platform === 'mobile';
   bookInfo!: BookData;
   currentCh: string = '1';
   chListComp: any;

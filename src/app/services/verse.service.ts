@@ -13,12 +13,9 @@ export class VerseService {
   constructor() {}
 
   loadVersesOn(vr: VerseRequest) {
-    switch (environment.platform) {
-      case 'electron': // @ts-ignore
-        this.versesPromise = window.electronAPI.fetchVersesOn(vr); break;
-      case 'web': break;
-      default: this.local_loadVersesOn();
-    }
+    if (environment.platform === 'electron') { // @ts-ignore
+      this.versesPromise = window.electronAPI.fetchVersesOn(vr);
+    } else this.local_loadVersesOn();
   }
 
   private local_loadVersesOn() {

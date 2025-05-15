@@ -11,12 +11,9 @@ export class BookService {
   constructor() {}
 
   loadAllBooks() {
-    switch (environment.platform) {
-      case 'electron': // @ts-ignore
-        this.booksPromise = window.electronAPI.fetchAllBooks(); break;
-      case 'web': break;
-      default: this.local_loadAllBooks();
-    }
+    if (environment.platform === 'electron') { // @ts-ignore
+      this.booksPromise = window.electronAPI.fetchAllBooks();
+    } else this.local_loadAllBooks();
     this.booksPromise?.then(data => this.booksCount = data.length);
   }
 

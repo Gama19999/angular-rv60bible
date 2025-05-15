@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { environment } from '../../../environments/environment';
 import { PopupService } from '../../services/popup.service';
 
 @Component({
@@ -13,7 +12,6 @@ export class ChapterListComponent implements OnInit {
   @Input('book-id') bookId: string = '1';
   @Input('ch-count') chapterCount: string = '1';
   chapters: string[] = [];
-  isMobile: boolean = environment.platform === 'mobile';
 
   constructor(private popupSrv: PopupService) {}
 

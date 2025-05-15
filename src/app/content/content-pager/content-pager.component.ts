@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
 import { VerseService } from '../../services/verse.service';
 
 @Component({
@@ -13,7 +12,6 @@ import { VerseService } from '../../services/verse.service';
 export class ContentPagerComponent implements OnInit, OnDestroy {
   private cpcSubs: Subscription | undefined;
   inTransition: boolean = false;
-  isMobile: boolean = environment.platform === 'mobile';
 
   constructor(private verseSrv: VerseService) {}
 

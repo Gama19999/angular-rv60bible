@@ -21,7 +21,6 @@ export class StartComponent implements OnInit, OnDestroy {
   private settingsState: boolean = false;
   protected readonly s = strings_es;
   iasd_logo: string = environment.icons + 'iasd_black.webp';
-  isMobile: boolean = environment.platform === 'mobile';
   infoComp: any;
   settingsComp: any;
 

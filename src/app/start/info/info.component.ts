@@ -12,7 +12,6 @@ import { PopupService } from '../../services/popup.service';
 })
 export class InfoComponent {
   protected readonly s = strings_es;
-  isMobile: boolean = environment.platform === 'mobile';
   appName: string = environment.appName;
   iasd_logo: string = environment.icons + 'iasd_black.webp';
   version: string = 'v. ' + environment.version;
