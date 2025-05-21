@@ -4,4 +4,5 @@
 export interface ChapterChange {
   bookId: string;
   chapterNum: string;
+  component_less?: boolean;
 }

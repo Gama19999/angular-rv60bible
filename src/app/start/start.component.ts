@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription} from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { strings_es } from '../../assets/strings/strings-es';
 import { environment } from '../../environments/environment';
 import { BookService } from '../services/book.service';
 import { PopupService } from '../services/popup.service';
-import { InfoComponent } from './info/info.component';
+import { InfoComponent } from '../shared/info/info.component';
 import { SettingsComponent } from '../shared/settings/settings.component';
 
 @Component({
@@ -15,35 +15,40 @@ import { SettingsComponent } from '../shared/settings/settings.component';
   styleUrl: './start.component.css'
 })
 export class StartComponent implements OnInit, OnDestroy {
-  private infoStateSubs: Subscription | undefined;
-  private settingsStateSubs: Subscription | undefined;
-  private infoState: boolean = false;
-  private settingsState: boolean = false;
+  private infoOpenSubs: Subscription | undefined;
+  private settOpenSubs: Subscription | undefined;
   protected readonly s = strings_es;
   iasd_logo: string = environment.icons + 'iasd_black.webp';
   infoComp: any;
-  settingsComp: any;
+  infoOpen: boolean = false;
+  settComp: any;
+  settOpen: boolean = false;
+  favoOpen: boolean = false;
 
   constructor(private bookSrv: BookService, private popupSrv: PopupService) {}
 
   ngOnInit() {
     this.bookSrv.loadAllBooks();
-    this.infoStateSubs = this.popupSrv.infoClosed.subscribe(() => this.toggleInfo());
-    this.settingsStateSubs = this.popupSrv.settingsClosed.subscribe(() => this.toggleSettings());
+    this.infoOpenSubs = this.popupSrv.infoClosed.subscribe(() => this.toggleInfo());
+    this.settOpenSubs = this.popupSrv.settingsClosed.subscribe(() => this.toggleSettings());
   }
 
   toggleInfo() {
-    this.infoState = !this.infoState;
-    this.infoComp = this.infoState ? InfoComponent : undefined;
+    this.infoOpen = !this.infoOpen;
+    this.infoComp = this.infoOpen ? InfoComponent : undefined;
+  }
+
+  toggleFavourites() {
+    this.favoOpen = !this.favoOpen;
   }
 
   toggleSettings() {
-    this.settingsState = !this.settingsState;
-    this.settingsComp = this.settingsState ? SettingsComponent : undefined;
+    this.settOpen = !this.settOpen;
+    this.settComp = this.settOpen ? SettingsComponent : undefined;
   }
 
   ngOnDestroy() {
-    this.infoStateSubs?.unsubscribe();
-    this.settingsStateSubs?.unsubscribe();
+    this.infoOpenSubs?.unsubscribe();
+    this.settOpenSubs?.unsubscribe();
   }
 }

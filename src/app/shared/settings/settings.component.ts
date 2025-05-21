@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { strings_es } from '../../../assets/strings/strings-es';
 import { PopupService } from '../../services/popup.service';
@@ -11,7 +11,6 @@ import { PopupService } from '../../services/popup.service';
 })
 export class SettingsComponent implements OnInit {
   protected readonly s = strings_es;
-  @Input('view-name') viewName!: string;
   isFullScreen!: boolean;
 
   constructor(private popupSrv: PopupService) {}

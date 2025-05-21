@@ -1,0 +1,14 @@
+.fav-item {
+  grid-template-columns: 30px 1fr;
+  grid-template-rows: 1fr;
+}
+.fav-item-menu {
+  justify-items: left;
+  align-items: center;
+}
+.pi.btn { font-size: 0.7rem; }
+.btn-label {
+  left: 0 !important;
+  bottom: 20px;
+}
+.fav-item-data { align-items: center; }

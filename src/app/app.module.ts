@@ -12,10 +12,13 @@ import { ContentPagerComponent } from './content/content-pager/content-pager.com
 import { ContentCardComponent } from './content/content-pager/content-card/content-card.component';
 import { VerseItemComponent } from './content/content-pager/content-card/verse-item/verse-item.component';
 import { ChapterListComponent } from './content/chapter-list/chapter-list.component';
-import { InfoComponent } from './start/info/info.component';
+import { BookListComponent } from './content/book-list/book-list.component';
+import { FavouritesComponent } from './shared/favourites/favourites.component';
+import { FavItemComponent } from './shared/favourites/fav-item/fav-item.component';
+import { InfoComponent } from './shared/info/info.component';
+import { SettingsComponent } from './shared/settings/settings.component';
 import { ChapterPipe } from './shared/pipes/chapter.pipe';
 import { TestamentPipe } from './shared/pipes/testament.pipe';
-import { SettingsComponent } from './shared/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -29,10 +32,13 @@ import { SettingsComponent } from './shared/settings/settings.component';
     ContentCardComponent,
     VerseItemComponent,
     ChapterListComponent,
+    BookListComponent,
+    FavouritesComponent,
+    FavItemComponent,
     InfoComponent,
+    SettingsComponent,
     TestamentPipe,
-    ChapterPipe,
-    SettingsComponent
+    ChapterPipe
   ],
   imports: [
     BrowserModule,

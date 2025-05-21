@@ -2,11 +2,11 @@
   <div class="verse-item-menu grid items-center r1" [ngClass]="{'pos-l': direction === 'left', 'pos-r': direction === 'right'}">
     <i class="pi btn c1 r1"
        [ngClass]="{'pi-bookmark': !isFavourite, 'pi-bookmark-fill': isFavourite}"
-       (click)="setFavourite()"></i>
+       (click)="toggleFavourite()"></i>
     <em class="btn-label on-hide fb c1 r1" [ngStyle]="{'left.px': direction === 'left' ? 15 : -14}">{{ s.verse1 }}</em>
   </div>
   <span class="verse-item-txt fn r1"
-        [ngClass]="{'mb': withMarginB}"
+        [ngClass]="{'mb': marginType === 'single', 'mb2': marginType === 'double', 'mb3': marginType === 'triple'}"
         [attr.data-verse-id]="verseId"
         [attr.data-book-id]="bookId"
         [attr.data-chapter]="chapterNum"

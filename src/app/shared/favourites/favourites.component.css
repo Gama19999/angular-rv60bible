@@ -1,0 +1,25 @@
+.favourites {
+  grid-template-columns: 15px 1fr 15px;
+  grid-template-rows: 40px;
+  grid-auto-rows: 1fr;
+  gap: 1rem 0;
+  padding: 1rem 0;
+  background: url("../../../assets/images/sheet.webp") 50% 50% / 100% 100% no-repeat;
+  width: 800px;
+  height: 600px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px 0 var(--shadow), -3px -3px 5px 0 var(--shadow);
+}
+.favourites-title {
+  grid-column: 1 / 4;
+  text-transform: uppercase;
+  font-size: 1.8rem;
+}
+@media screen and (max-width: 1300px) { /***** MEDIUM SCREEN VIEW *****/
+  .favourites {
+    width: 700px;
+    height: 490px;
+  }
+  .favourites-title { font-size: 1.6rem; }
+}
+

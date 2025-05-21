@@ -4,14 +4,17 @@
     <img src="{{ iasd_logo }}" alt="iasd_logo" class="start-iasd-logo">
   </div>
   <div class="c2 r2 flex flex-center">
-    <app-book-pager></app-book-pager>
+    <app-book-pager [ngClass]="{'hidden': favoOpen}"></app-book-pager>
+    <app-favourites [ngClass]="{'hidden': !favoOpen}"></app-favourites>
   </div>
   <div class="start-controls full grid items-center c2 r3">
     <i class="pi pi-crown btn c1 r1 pointer" (click)="toggleInfo()"></i>
     <em class="btn-label on-hide fb c1 r1">{{ s.btn4 }}</em>
+    <i class="pi btn c2 r1 pointer" [ngClass]="{'pi-star': !favoOpen, 'pi-star-fill': favoOpen}" (click)="toggleFavourites()"></i>
+    <em class="btn-label on-hide fb c2 r1">{{ s.btn7 }}</em>
     <i class="pi pi-cog btn c3 r1 pointer" (click)="toggleSettings()"></i>
     <em class="btn-label on-hide fb c3 r1">{{ s.btn3 }}</em>
   </div>
   <ng-container *ngComponentOutlet="infoComp"></ng-container>
-  <ng-container *ngComponentOutlet="settingsComp; inputs: {'view-name': 'start'}"></ng-container>
+  <ng-container *ngComponentOutlet="settComp"></ng-container>
 </section>

@@ -1,0 +1,13 @@
+<article class="favourites grid items-center overflow-y">
+  <div class="favourites-title r1 fe f-sh-b">{{ s.btn7 }}</div>
+  @for (fav of vFavourites; track $index) {
+    <app-fav-item [verse-id]="fav.verseId"
+                  [book-id]="fav.bookId"
+                  [chapter-num]="fav.chapterNum"
+                  [verse-num]="fav.verseNum"
+                  [verse-txt]="fav.verseTxt"
+                  [date-added]="fav.added"
+                  [ngStyle]="{'grid-column': 2, 'grid-row': $index + 2}"
+                  (favourite-change)="fetchFavourites()"></app-fav-item>
+  }
+</article>

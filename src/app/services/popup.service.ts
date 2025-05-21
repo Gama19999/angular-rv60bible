@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
+import { BookData } from '../models/book-data.interface';
 import { ChapterChange } from '../models/chapter-change.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -8,6 +9,7 @@ export class PopupService {
   private _isFullScreen: boolean = false;
   infoClosed: Subject<void> = new Subject();
   chListClosed: Subject<ChapterChange> = new Subject();
+  bkListClosed: Subject<BookData> = new Subject();
   settingsClosed: Subject<void> = new Subject();
 
   get isFullScreen(): boolean { return this._isFullScreen; }

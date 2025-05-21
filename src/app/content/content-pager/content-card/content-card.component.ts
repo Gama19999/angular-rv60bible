@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { PopupService } from '../../../services/popup.service';
 import { VerseService } from '../../../services/verse.service';
+import { BookData } from '../../../models/book-data.interface';
 import { ChapterChange } from '../../../models/chapter-change.interface';
 import { VerseData } from '../../../models/verse-data.interface';
 import { firstOfCh, nextOfCh, prevOfCh } from '../../../models/verse-request.template';
@@ -17,6 +18,7 @@ import { firstOfCh, nextOfCh, prevOfCh } from '../../../models/verse-request.tem
 export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
   private cpcSubs: Subscription | undefined;
   private chListSubs: Subscription | undefined;
+  private bkListSubs: Subscription | undefined;
   private verses: VerseData[] = [];
   private xDown: number | undefined;
   private yDown: number | undefined;
@@ -25,7 +27,7 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input('page-direction') pageDirection!: string;
   @Input('is-mobile') isMobile: boolean = false;
   @Input('has-content') hasContent: boolean = false;
-  viewArr: {verse: VerseData, withMarginB: boolean}[] = [];
+  viewArr: {verse: VerseData, marginType: string}[] = [];
 
   constructor(private verseSrv: VerseService, private popupSrv: PopupService) {}
 
@@ -35,6 +37,7 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.reloadVerses();
     this.cpcSubs = this.verseSrv.contentPageChange.subscribe(() => this.reloadVerses());
     this.chListSubs = this.popupSrv.chListClosed.subscribe(cc => this.handleChListChange(cc));
+    this.bkListSubs = this.popupSrv.bkListClosed.subscribe(bd => this.handleBkListChange(bd));
   }
 
   private reloadVerses() {
@@ -50,17 +53,30 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private fillViewArr() {
     this.viewArr = [];
-    let needMarginB;
-    for (let vi = 0; vi < this.verses.length; vi++) {
-      needMarginB = vi < this.verses.length - 1 ?
-               environment.fetchLimit === 16 ? this.verses[vi].verseTxt.length > 130 && this.verses[vi+1].verseTxt.length > 115 :
-               this.verses[vi].verseTxt.length > 160 && this.verses[vi+1].verseTxt.length > 160 : false;
-      this.viewArr.push({verse: this.verses[vi], withMarginB: needMarginB});
+    for (let vi = 0; vi < this.verses.length; vi++)
+      this.viewArr.push({verse: this.verses[vi], marginType: this.marginType(vi)});
+  }
+
+  private marginType(vi: number): string {
+    let type = 'none';
+    if (vi < this.verses.length - 1) {
+      if (environment.fetchLimit === 16)
+        type = this.verses[vi].verseTxt.length > 305 ? 'triple' :
+               this.verses[vi].verseTxt.length > 240 ? 'double' :
+               this.verses[vi].verseTxt.length > 130 && this.verses[vi+1].verseTxt.length > 115 ? 'single' : type;
+      else
+        type = this.verses[vi].verseTxt.length > 160 && this.verses[vi+1].verseTxt.length > 145 ? 'single' : type;
     }
+    return type;
   }
 
   private handleChListChange(cc: ChapterChange) {
     this.verseSrv.loadVersesOn(firstOfCh(cc.bookId, cc.chapterNum));
+    this.reloadVerses();
+  }
+
+  private handleBkListChange(bd: BookData) {
+    this.verseSrv.loadVersesOn(firstOfCh(bd.bookId, '1'));
     this.reloadVerses();
   }
 
@@ -107,5 +123,6 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.contentCardEl.nativeElement.removeEventListener('touchmove', this.touchMove, false);
     this.cpcSubs?.unsubscribe();
     this.chListSubs?.unsubscribe();
+    this.bkListSubs?.unsubscribe();
   }
 }

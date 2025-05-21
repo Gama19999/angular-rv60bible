@@ -1,0 +1,5 @@
+<nav class="component-list grid items-center overflow-y fb f-sh-b">
+  @for (bk of books; track $index) {
+    <div class="component-list-item pointer" (click)="bookClick($index)">{{ bk.bookName }}</div>
+  }
+</nav>

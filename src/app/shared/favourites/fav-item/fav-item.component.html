@@ -1,0 +1,15 @@
+<div class="fav-item grid">
+  <div class="fav-item-menu grid c1 r2">
+    <i class="pi btn c1 r1 pointer" [ngClass]="{'pi-bookmark': !isFavourite, 'pi-bookmark-fill': isFavourite}"
+       (click)="toggleFavourite()"></i>
+    <em class="btn-label on-hide fb c1 r1 fit" [ngStyle]="{'left.px': 15}">{{ s.verse1 }}</em>
+  </div>
+  <div class="fav-item-data flex c2 r1">
+    <i class="pi pi-book"></i>&nbsp;{{ bookName }}&nbsp;&nbsp;<i class="pi pi-map-marker"></i>&nbsp;{{ chapterNum }}:{{ verseNum }}
+  </div>
+  <span class="fav-item-txt fn c2 r2" [attr.data-verse-id]="verseId" [attr.data-book-id]="bookId"
+        [attr.data-chapter]="chapterNum" [attr.data-verse]="verseNum" [attr.data-verse-len]="verseTxt.length">
+    {{ verseTxt }}
+  </span>
+  <div class="fav-item-added on-hide fb c2 r2">{{ s.fav1 }}:{{ dateAdded }}</div>
+</div>

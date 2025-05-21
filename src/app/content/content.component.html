@@ -3,9 +3,24 @@
     <div class="content-appname fe f-sh-w">{{ s.start1 }}</div>
     <img src="{{ iasd_logo }}" alt="iasd_logo" class="content-iasd-logo">
   </div>
-  <div class="content-book full grid c2 r2">
-    <div class="content-book-indicator self-end f-sh-b"><i class="pi pi-book"></i>&nbsp;{{ bookInfo.bookName }}</div>
-    <div class="content-book-indicator self-start f-sh-b"><i class="pi pi-map-marker"></i>&nbsp;{{ currentCh | chapter }}</div>
+  <div class="content-book-info full grid c2 r2">
+    <div class="flex flex-center self-end content-gap">
+      <div class="content-book-indicator f-sh-b"><i class="pi pi-book"></i>&nbsp;{{ bookInfo.bookName }}</div>
+      <div class="content-book-indicator grid items-center f-sh-b pointer" (click)="toggleBookList()">
+        <i class="pi c1 r1 adjust" [ngClass]="{'pi-angle-double-down': !bkListOpen, 'pi-angle-double-up': bkListOpen}"></i>
+        <em class="btn-label on-hide fb c1 r1">{{ s.btn1 }}</em>
+      </div>
+      <ng-container *ngComponentOutlet="bkListComp"></ng-container>
+    </div>
+    <div class="flex flex-center self-start content-gap">
+      <div class="content-book-indicator f-sh-b pointer" (click)="btnChapterClicked('prev')">
+        <i class="pi pi-chevron-left"></i>&nbsp;{{ s.btn5 }}
+      </div>
+      <div class="content-book-indicator f-sh-b"><i class="pi pi-map-marker"></i>&nbsp;{{ s.content1 }}&nbsp;{{ currentCh | chapter }}</div>
+      <div class="content-book-indicator f-sh-b pointer" (click)="btnChapterClicked('next')">
+        {{ s.btn6 }}&nbsp;<i class="pi pi-chevron-right"></i>
+      </div>
+    </div>
   </div>
   <div class="c2 r3 flex flex-center">
     <app-content-pager></app-content-pager>
@@ -18,7 +33,8 @@
        (click)="toggleChapterList()"></i>
     <em class="btn-label on-hide fb c2 r1">{{ s.btn2 }}</em>
     <ng-container *ngComponentOutlet="chListComp; inputs: {'book-id': bookInfo.bookId, 'ch-count': bookInfo.bookChCount}"></ng-container>
-    <i class="pi pi-cog btn c3 r1 pointer"></i>
+    <i class="pi pi-cog btn c3 r1 pointer" (click)="toggleSettings()"></i>
     <em class="btn-label on-hide fb c3 r1">{{ s.btn3 }}</em>
   </div>
+  <ng-container *ngComponentOutlet="settComp"></ng-container>
 </section>
