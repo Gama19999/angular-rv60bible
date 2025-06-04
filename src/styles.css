@@ -29,7 +29,7 @@ app-info, app-settings {
 }
 app-chapter-list {
   position: absolute;
-  bottom: 70px;
+  bottom: 65px;
 }
 app-book-list {
   position: absolute;
@@ -115,9 +115,9 @@ a { color: black; }
   background-color: var(--ch-shadow);
 }
 
-@media screen and (max-width: 1300px) { /***** MEDIUM SCREEN VIEW *****/
+@media screen and (max-width: 1400px) { /***** MEDIUM SCREEN VIEW *****/
   app-book-list {
-    top: 75px;
+    top: 11%;
     margin-right: -3rem;
   }
   .btn-label { font-size: 0.7rem; }

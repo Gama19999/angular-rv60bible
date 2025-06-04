@@ -14,7 +14,7 @@ export const strings_es = {
   verse1: 'favorito',
   info1: 'programador',
   info2: 'correo electrónico',
-  info3: 'sitio web',
+  info3: 'más información',
   info4: 'iglesia adventista del 7° día',
   settings1: 'ajustes generales',
   settings2: 'pantalla completa',

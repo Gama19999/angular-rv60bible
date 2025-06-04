@@ -33,7 +33,7 @@
   border-radius: 5px;
   animation: 4s cubic-bezier(0.47,1.94,0.31,0.8) 800ms 1 normal both running nameIn;
 }
-@media screen and (max-width: 1300px) { /***** MEDIUM SCREEN VIEW *****/
+@media screen and (max-width: 1400px) { /***** MEDIUM SCREEN VIEW *****/
   .fade-name { font-size: 2rem; }
   .fade-line { left: 28%; width: 44%; }
 }

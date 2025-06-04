@@ -15,7 +15,7 @@
   text-transform: uppercase;
   font-size: 1.8rem;
 }
-@media screen and (max-width: 1300px) { /***** MEDIUM SCREEN VIEW *****/
+@media screen and (max-width: 1400px) { /***** MEDIUM SCREEN VIEW *****/
   .favourites {
     width: 700px;
     height: 490px;

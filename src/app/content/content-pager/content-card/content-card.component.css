@@ -22,7 +22,7 @@
 .shadow-l { box-shadow: -3px 3px 5px 0 var(--shadow); }
 .shadow-r { box-shadow: 3px 3px 5px 0 var(--shadow); }
 .shadow-m { box-shadow: -3px -3px 5px 0 var(--shadow), 3px 3px 5px 0 var(--shadow); }
-@media screen and (max-width: 1300px) { /***** MEDIUM SCREEN VIEW *****/
+@media screen and (max-width: 1400px) { /***** MEDIUM SCREEN VIEW *****/
   .content-card { grid-template-rows: 10px repeat(8, 1fr) 10px; }
   .content-card-bg { grid-row: 1 / 11; }
   .content-card-dimension {

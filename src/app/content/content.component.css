@@ -35,7 +35,7 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
 }
-@media screen and (max-width: 1300px) { /***** MEDIUM SCREEN VIEW *****/
+@media screen and (max-width: 1400px) { /***** MEDIUM SCREEN VIEW *****/
   .content { grid-template-rows: repeat(2, 5%) 1fr 7%; }
   .content-appname { font-size: 1.2rem; }
   .content-iasd-logo { width: 1.5rem; }
