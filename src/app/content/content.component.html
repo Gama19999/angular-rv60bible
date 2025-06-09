@@ -5,7 +5,7 @@
   </div>
   <div class="content-book-info full grid c2 r2">
     <div class="flex flex-center self-end content-gap">
-      <div class="content-book-indicator f-sh-b"><i class="pi pi-book"></i>&nbsp;{{ bookInfo.bookName }}</div>
+      <div class="content-book-indicator bn f-sh-b"><i class="pi pi-book"></i>&nbsp;{{ bookInfo.bookName }}</div>
       <div class="content-book-indicator grid items-center f-sh-b pointer" (click)="toggleBookList()">
         <i class="pi c1 r1 adjust" [ngClass]="{'pi-angle-double-down': !bkListOpen, 'pi-angle-double-up': bkListOpen}"></i>
         <em class="btn-label on-hide fb c1 r1">{{ s.btn1 }}</em>
@@ -16,7 +16,7 @@
       <div class="content-book-indicator f-sh-b pointer" (click)="btnChapterClicked('prev')">
         <i class="pi pi-chevron-left"></i>&nbsp;{{ s.btn5 }}
       </div>
-      <div class="content-book-indicator f-sh-b"><i class="pi pi-map-marker"></i>&nbsp;{{ s.content1 }}&nbsp;{{ currentCh | chapter }}</div>
+      <div class="content-book-indicator bc f-sh-b"><i class="pi pi-map-marker"></i>&nbsp;{{ s.content1 }}&nbsp;{{ currentCh | chapter }}</div>
       <div class="content-book-indicator f-sh-b pointer" (click)="btnChapterClicked('next')">
         {{ s.btn6 }}&nbsp;<i class="pi pi-chevron-right"></i>
       </div>

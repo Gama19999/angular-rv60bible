@@ -26,6 +26,7 @@
   box-shadow: 3px 3px 5px 0 var(--shadow);
   text-transform: capitalize;
 }
+.bn, .bc { font-size: 1.3rem !important; }
 .content-book-indicator.pointer:active { box-shadow: 1px 1px 5px 0 var(--shadow); }
 .adjust { margin: 0.2rem 0; }
 .self-end { justify-self: end; }

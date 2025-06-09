@@ -1,7 +1,12 @@
 .content-card {
   grid-template-columns: 10px 1fr 10px;
-  grid-template-rows: 10px repeat(10, 1fr) 10px;
   transition: opacity ease-in-out;
+}
+.vl-20 { grid-template-rows: 10px repeat(10, 1fr) 10px; }
+.vl-16 { grid-template-rows: 10px repeat(8, 1fr) 10px; }
+.vl-10 {
+  grid-template-rows: 10px repeat(5, 1fr) 10px;
+  gap: 1rem 0;
 }
 .content-card-dimension {
   width: 630px;
@@ -23,10 +28,9 @@
 .shadow-r { box-shadow: 3px 3px 5px 0 var(--shadow); }
 .shadow-m { box-shadow: -3px -3px 5px 0 var(--shadow), 3px 3px 5px 0 var(--shadow); }
 @media screen and (max-width: 1400px) { /***** MEDIUM SCREEN VIEW *****/
-  .content-card { grid-template-rows: 10px repeat(8, 1fr) 10px; }
   .content-card-bg { grid-row: 1 / 11; }
   .content-card-dimension {
-    width: 500px;
+    width: 600px;
     height: 540px;
     max-height: 540px;
   }

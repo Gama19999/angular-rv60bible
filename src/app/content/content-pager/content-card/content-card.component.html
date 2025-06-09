@@ -2,8 +2,10 @@
          [ngClass]="{'content-card-shape-l shadow-l': pageDirection === 'left',
                      'content-card-shape-r shadow-r': pageDirection === 'right',
                      'content-card-shape-m shadow-m': isMobile,
+                     'vl-20': vl === 20, 'vl-16': vl === 16, 'vl-10': vl === 10,
                      'pointer': !isMobile,
                      'hidden': rightHidden }"
+         [ngStyle]="{'font-size': vl === 10 ? '1.5rem' : '1rem'}"
          (click)="contentCardClick($event)" #contentCard>
   @for (va of viewArr; track $index;) {
     <app-verse-item [direction]="pageDirection"

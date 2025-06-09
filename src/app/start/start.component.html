@@ -16,5 +16,5 @@
     <em class="btn-label on-hide fb c3 r1">{{ s.btn3 }}</em>
   </div>
   <ng-container *ngComponentOutlet="infoComp"></ng-container>
-  <ng-container *ngComponentOutlet="settComp"></ng-container>
+  <ng-container *ngComponentOutlet="settComp; inputs: {'verse-limit-op': true}"></ng-container>
 </section>

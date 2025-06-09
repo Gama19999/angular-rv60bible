@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { environment } from '../../../../environments/environment';
 import { PopupService } from '../../../services/popup.service';
 import { VerseService } from '../../../services/verse.service';
 import { BookData } from '../../../models/book-data.interface';
@@ -28,6 +27,7 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input('is-mobile') isMobile: boolean = false;
   @Input('has-content') hasContent: boolean = false;
   viewArr: {verse: VerseData, marginType: string}[] = [];
+  vl: number = 0;
 
   constructor(private verseSrv: VerseService, private popupSrv: PopupService) {}
 
@@ -41,11 +41,12 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private reloadVerses() {
+    this.vl = this.verseSrv.fetchLimit;
     this.verseSrv.versesPromise?.then(data => {
       if (this.isMobile) { this.verses = data; return; }
       switch (this.pageDirection) {
-        case 'left': this.verses = data.slice(0, environment.fetchLimit / 2); break;
-        case 'right': this.verses = data.slice(environment.fetchLimit / 2); break;
+        case 'left': this.verses = data.slice(0, this.verseSrv.fetchLimit / 2); break;
+        case 'right': this.verses = data.slice(this.verseSrv.fetchLimit / 2); break;
       }
       this.fillViewArr();
     });
@@ -60,7 +61,15 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
   private marginType(vi: number): string {
     let type = 'none';
     if (vi < this.verses.length - 1) {
-      if (environment.fetchLimit === 16)
+      if (this.verseSrv.fetchLimit === 10)
+        type = this.verses[vi].verseTxt.length > 293 ? 'max' :
+               this.verses[vi].verseTxt.length > 240 ? 'quad' :
+               this.verses[vi].verseTxt.length > 190 ? 'triple+' :
+               this.verses[vi].verseTxt.length > 187 && this.verses[vi+1].verseTxt.length < 151 ? 'double+' :
+               this.verses[vi].verseTxt.length > 187 ? 'triple+' :
+               this.verses[vi].verseTxt.length > 138 && this.verses[vi+1].verseTxt.length > 138 ? 'double+' :
+               this.verses[vi].verseTxt.length > 138 ? 'double' : type;
+      else if (this.verseSrv.fetchLimit === 16)
         type = this.verses[vi].verseTxt.length > 305 ? 'triple' :
                this.verses[vi].verseTxt.length > 240 ? 'double' :
                this.verses[vi].verseTxt.length > 130 && this.verses[vi+1].verseTxt.length > 115 ? 'single' : type;
@@ -71,12 +80,12 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private handleChListChange(cc: ChapterChange) {
-    this.verseSrv.loadVersesOn(firstOfCh(cc.bookId, cc.chapterNum));
+    this.verseSrv.loadVersesOn(firstOfCh(cc.bookId, cc.chapterNum, this.verseSrv.fetchLimit));
     this.reloadVerses();
   }
 
   private handleBkListChange(bd: BookData) {
-    this.verseSrv.loadVersesOn(firstOfCh(bd.bookId, '1'));
+    this.verseSrv.loadVersesOn(firstOfCh(bd.bookId, '1', this.verseSrv.fetchLimit));
     this.reloadVerses();
   }
 
@@ -92,10 +101,10 @@ export class ContentCardComponent implements OnInit, AfterViewInit, OnDestroy {
   private emitPageChange(dir: string = this.pageDirection) {
     if (dir === 'left') {
       const first = this.verses[0];
-      this.verseSrv.loadVersesOn(prevOfCh(first.bookId, first.chapterNum, first.verseNum));
+      this.verseSrv.loadVersesOn(prevOfCh(first.bookId, first.chapterNum, first.verseNum, this.verseSrv.fetchLimit));
     } else {
       const last = this.verses[this.verses.length - 1];
-      this.verseSrv.loadVersesOn(nextOfCh(last.bookId, last.chapterNum, last.verseNum));
+      this.verseSrv.loadVersesOn(nextOfCh(last.bookId, last.chapterNum, last.verseNum, this.verseSrv.fetchLimit));
     }
     this.verseSrv.versesPromise?.then(data => { if (data.length) this.verseSrv.contentPageChange.next(); });
   }

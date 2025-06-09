@@ -8,9 +8,20 @@
       <i class="btn pi pointer" [ngClass]="{'pi-arrow-up-right-and-arrow-down-left-from-center': !isFullScreen,
                                             'pi-arrow-down-left-and-arrow-up-right-to-center': isFullScreen}"></i>
     </div>
+    <ng-container *ngIf="verseLimitOp">
+      <div class="c2"></div>
+      <div class="settings-config fn c2">
+        {{ s.settings3 }}&nbsp;
+        <select class="btn pointer" name="versesPerPage" [(ngModel)]="verseLimit" (change)="fetchLimitUpd()">
+          <option value="20">20</option>
+          <option value="16">16</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+    </ng-container>
     <div class="c2"></div>
     <div class="settings-config fn c2" (click)="exitApp()">
-      {{ s.settings3 }}&nbsp;&nbsp;&nbsp;<i class="btn pi pi-sign-out pointer"></i>
+      {{ s.settings4 }}&nbsp;&nbsp;&nbsp;<i class="btn pi pi-sign-out pointer"></i>
     </div>
     <div class="c2"></div>
   </div>

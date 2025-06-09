@@ -46,7 +46,7 @@ export class ContentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (!this.bookSrv.booksPromise) this.router.navigate(['/'], {replaceUrl: true});
     this.completeBookData();
-    this.verseSrv.loadVersesOn(firstOfCh(this.bookInfo.bookId, this.currentCh));
+    this.verseSrv.loadVersesOn(firstOfCh(this.bookInfo.bookId, this.currentCh, this.verseSrv.fetchLimit));
     this.chListSubs = this.popupSrv.chListClosed.subscribe(cc => this.handleChListChange(cc));
     this.bkListSubs = this.popupSrv.bkListClosed.subscribe(bd => this.handleBkListChange(bd));
     this.settOpenSubs = this.popupSrv.settingsClosed.subscribe(() => this.toggleSettings());

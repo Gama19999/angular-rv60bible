@@ -6,7 +6,13 @@
     <em class="btn-label on-hide fb c1 r1" [ngStyle]="{'left.px': direction === 'left' ? 15 : -14}">{{ s.verse1 }}</em>
   </div>
   <span class="verse-item-txt fn r1"
-        [ngClass]="{'mb': marginType === 'single', 'mb2': marginType === 'double', 'mb3': marginType === 'triple'}"
+        [ngClass]="{'mb': marginType === 'single',
+                    'mb2': marginType === 'double',
+                    'mb2p': marginType === 'double+',
+                    'mb3': marginType === 'triple',
+                    'mb3p': marginType === 'triple+',
+                    'mb4': marginType === 'quad',
+                    'mb5': marginType === 'max'}"
         [attr.data-verse-id]="verseId"
         [attr.data-book-id]="bookId"
         [attr.data-chapter]="chapterNum"

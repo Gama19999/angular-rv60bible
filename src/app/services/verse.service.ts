@@ -7,10 +7,14 @@ import { VerseRequest } from '../models/verse-request.template';
 
 @Injectable({ providedIn: 'root' })
 export class VerseService {
+  private _fetchLimit: number = innerWidth < 1400 ? 16 : 20;
   versesPromise: Promise<VerseData[]> | undefined;
   contentPageChange: Subject<void> = new Subject();
 
   constructor() {}
+
+  get fetchLimit(): number { return this._fetchLimit; }
+  set fetchLimit(fetchLimit: number) { this._fetchLimit = fetchLimit; }
 
   loadVersesOn(vr: VerseRequest) {
     if (environment.platform === 'electron') { // @ts-ignore
