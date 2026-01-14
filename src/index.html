@@ -2,12 +2,41 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Biblia RV1960</title>
-  <link rel="icon" type="image/x-icon" href="media/icons/ic_color.webp">
+  <base href="/">
+  <link rel="icon" type="image/png" href="assets/icons/rv60bible.png">
+  <title>Rv60bible</title>
+  <style>
+    @font-face {
+      font-family: "Spectral";
+      src: url("assets/fonts/Spectral-Medium.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "Spectral Italic";
+      src: url("assets/fonts/Spectral-MediumItalic.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "Spectral Bold";
+      src: url("assets/fonts/Spectral-SemiBold.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "Martel";
+      src: url("assets/fonts/Martel-Bold.ttf") format("truetype");
+    }
+    @font-face {
+      font-family: "Martel Black";
+      src: url("assets/fonts/Martel-Black.ttf") format("truetype");
+    }
+    .back-light {
+      background: url("assets/images/back-light.webp") 50% 50% / 100% 100% no-repeat;
+      box-shadow: inset 0 0 0 1000px rgba(176, 139, 105, 0.3);
+    }
+    .back-dark { background: url("assets/images/back-dark.webp") 50% 50% / 100% 100% no-repeat; }
+    .light-page { background: url("assets/images/sheet-light.webp") 50% 50% / 100% 100% no-repeat; }
+    .dark-page { background: url("assets/images/sheet-dark.webp") 50% 50% / 100% 100% no-repeat; }
+  </style>
 </head>
-<body class="bg-conf">
+<body>
   <app-root></app-root>
 </body>
 </html>

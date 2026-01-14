@@ -1,0 +1,13 @@
+<section class="verse-viewer full grid items-center">
+    <app-single-page type="verses">
+        @for (verse of verseArray$ | async; track $index) {
+            <div [id]="getVerseHashtag(bookData.name, verse.chapterId, verse.verseOrdinal)" [tabindex]="-1"
+                class="verse-container {{ verse.color }}" (contextmenu)="openMenu($event, verse)">
+                <span class="verse-ordinal martel bold vsn">{{ verse.verseOrdinal }}</span>
+                <span class="verse-text spectral vsn">{{ verse.text }}</span>
+            </div>
+        }
+    </app-single-page>
+    <app-context-menu [verse-data]="menuData" [ngClass]="{'hidden': menuHidden}"
+        [ngStyle]="{'top.px': menuY, 'left.px': menuX}" (close)="this.menuHidden = true"></app-context-menu>
+</section>

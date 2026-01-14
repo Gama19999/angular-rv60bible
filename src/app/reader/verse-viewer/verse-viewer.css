@@ -1,0 +1,16 @@
+app-single-page {
+    width: 100%;
+    height: 95%;
+    max-height: 95%;
+    overflow-y: auto;
+    align-self: self-start;
+    border-radius: 1rem;
+    box-shadow: var(--page-shadow);
+}
+.verse-container { outline: none; }
+.verse-container:hover {
+    background-color: var(--highlight-text);
+    text-shadow: none !important;
+}
+.verse-ordinal { margin-right: 0.7rem; }
+.vsn { font-size: 2rem; }

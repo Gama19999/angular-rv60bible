@@ -1,0 +1,36 @@
+.single-page {
+    padding: 1rem;
+    cursor: pointer;
+}
+.light-page.book-model:hover, .light-page.chapter-model:hover { color: var(--primary); }
+.dark-page.book-model:hover, .dark-page.chapter-model:hover { color: var(--secondary); }
+.book-model {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 30% 10% repeat(6, 10%);
+    justify-items: center;
+    align-items: center;
+}
+.book-model:active { scale: 0.98; }
+.chapter-model { padding: 0; }
+.book-model, .chapter-model {
+    border-radius: 1rem 2rem;
+    box-shadow: var(--page-shadow);
+}
+.verses-model {
+    cursor: default;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-rows: min-content;
+    gap: 1rem 0;
+    border-radius: 1rem;
+    align-items: start;
+    max-height: 100%;
+    overflow-y: auto;
+    scrollbar-width: auto;
+    scrollbar-color: rgba(0,0,0,0.5) transparent;
+}
+.long-name {
+    scale: 0.8;
+    text-align: center;
+}

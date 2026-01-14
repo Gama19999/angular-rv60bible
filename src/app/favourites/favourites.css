@@ -1,0 +1,13 @@
+app-single-page {
+    height: 100%;
+    border-radius: 1rem;
+    overflow-y: auto;
+    box-shadow: var(--page-shadow);
+}
+.fav-txt { margin: 1rem 0; }
+.fav-txt:hover {
+    background-color: var(--highlight-text);
+    text-shadow: none !important;
+}
+.vsn { font-size: 2rem; }
+.bible-quote { margin-right: 0.7rem; }

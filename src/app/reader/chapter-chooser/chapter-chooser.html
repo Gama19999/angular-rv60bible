@@ -1,0 +1,5 @@
+<section class="chapter-chooser full grid items-center">
+    @for (chapterNum of chapters; track $index) {
+        <app-single-page type="chapter" [chapter-num]="chapterNum" class="pointer" (page-click)="openVerses($event)"></app-single-page>
+    }
+</section>

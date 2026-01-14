@@ -1,0 +1,44 @@
+.context-menu {
+    grid-template-columns: 1fr 10%;
+    grid-template-rows: repeat(2, min-content);
+    grid-auto-rows: min-content;
+    background-color: var(--context-menu);
+    padding: 0.5rem;
+    color: var(--onTertiary);
+    list-style: none;
+    outline: 5px solid var(--secondary);
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px 0 var(--backdrop-modal);
+    max-height: 230px;
+    overflow-y: auto;
+}
+.close-mark {
+    font-weight: bold;
+    justify-self: right;
+    align-self: self-start;
+}
+li { padding: 0.5rem 0; }
+li:hover:not(.no-hover) { color: var(--secondary); }
+.colors {
+    justify-content: space-evenly;
+    text-align: center;
+    gap: 0.4rem 0;
+}
+.btn-color {
+    border: none;
+    outline: none;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px 0 var(--backdrop-modal);
+    font-weight: bold;
+}
+.color1 { background-color: var(--color1); }
+.color2 { background-color: var(--color2); }
+.color3 { background-color: var(--color3); }
+.color4 { background-color: var(--color4); }
+.reports {
+    justify-content: center;
+    gap: 0.7rem 0;
+}
+.btn-report { padding: 0.2rem 0.4rem; }

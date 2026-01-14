@@ -1,0 +1,26 @@
+<section class="reader full grid items-center">
+    <app-logo class="logo c1 r1 pointer" (click)="gotoLobby()"></app-logo>
+    <div class="bible-info c23 r1 martel bold sn">{{ (bibleInfo$ | async)?.name }}</div>
+    <div class="bible-quote c34 r1 martel bold">{{ bibleQuote$ | async }}</div>
+    <div class="bible-navigation full flex c12 r23">
+        <select id="bible-version" class="field select martel" [(ngModel)]="bibleId"
+            (change)="setBibleVersion()">
+            @for (bible of bibles$ | async; track $index) { <option [value]="bible.id">{{ bible.name }}</option> }
+        </select>
+        @if ((bibleQuote$ | async) !== 'Favoritos') { <input type="button" value="Ver favoritos" class="toggle martel sn pointer" [ngClass]="{'hidden': !bookChapterHidden }" (click)="gotoFavourites()"> }
+        <div class="book-navigation flex flex-center full-w" [ngClass]="{'hidden': bookChapterHidden}">
+            <input type="button" [attr.data-book-id]="(prevBook$ | async)?.bookId" [value]="'\<\< Ir a ' + (prevBook$ | async)?.name" class="toggle martel sn pointer" [ngClass]="{'hidden': bookChapterHidden || bookId === 1}" (click)="changeBookTo($event)">
+            <input type="button" [attr.data-book-id]="(nextBook$ | async)?.bookId" [value]="'Ir a ' + (nextBook$ | async)?.name + ' \>\>'" class="toggle martel sn pointer" [ngClass]="{'hidden': bookChapterHidden || bookId === 66}" (click)="changeBookTo($event)">
+            <input type="button" value="Regresar a libros" class="toggle martel sn pointer" [ngClass]="{'hidden': bookChapterHidden}" (click)="gotoBooks()">
+        </div>
+        <div class="chapter-navigation flex flex-center full-w" [ngClass]="{'hidden': bookChapterHidden}">
+            <input type="button" [attr.data-chapter-id]="chapterNum - 1" [value]="'\<\< Ir al capítulo ' + (chapterNum - 1)" class="toggle martel sn pointer" [ngClass]="{'hidden': bookChapterHidden || chapterNum - 1 === 0}" (click)="changeChapterTo($event)">
+            <input type="button" [attr.data-chapter-id]="chapterNum + 1" [value]="'Ir al capítulo ' + (chapterNum + 1) + ' \>\>'" class="toggle martel sn pointer" [ngClass]="{'hidden': bookChapterHidden || chapterNum + 1 > chapterLimit}" (click)="changeChapterTo($event)">
+            <input type="button" value="Regresar a capítulos" class="toggle martel sn pointer" [ngClass]="{'hidden': bookChapterHidden}" (click)="gotoChapters()">
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+    <app-btn-config class="pointer c1 r4" (click)="configHidden = false"></app-btn-config>
+    <app-modal height="fit-content" class="modal" [ngClass]="{'hidden': configHidden}"
+        (close)="this.configHidden = true"></app-modal>
+</section>

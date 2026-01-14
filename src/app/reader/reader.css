@@ -1,0 +1,42 @@
+.reader {
+    grid-template-columns: 5% 20% 70% 5%;
+    grid-template-rows: 10% repeat(2, 1fr) 10%;
+}
+.logo { scale: 0.1; }
+.bible-info {
+    color: var(--outline);
+    justify-self: start;
+}
+.bible-quote {
+    color: var(--outline);
+    justify-self: end;
+    font-size: 2.2rem;
+    margin-right: 3%;
+}
+.bible-navigation {
+    justify-content: center;
+    align-content: center;
+    gap: 15% 0;
+}
+.field {
+    width: 90%;
+    max-width: 90%;
+    height: 3.5rem;
+    font-size: 1.2rem;
+    align-self: self-start;
+    background-color: var(--field-bg);
+}
+.book-navigation, .chapter-navigation { gap: 2rem 0; }
+.toggle {
+    background-color: var(--field-bg);
+    width: 90%;
+}
+@media screen and (min-height: 660px) and (max-height: 800px) { /***** SMALL SCREEN VIEW *****/
+    .bible-navigation { gap: 13% 0; }
+    .select {
+        height: 3rem;
+        font-size: 1rem;
+    }
+    .book-navigation, .chapter-navigation { gap: 1.5rem 0; }
+    .toggle { font-size: 1.2rem; }
+}

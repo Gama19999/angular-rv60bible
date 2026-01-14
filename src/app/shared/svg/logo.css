@@ -1,0 +1,3 @@
+#cross-left { transform: scaleY(1.007) translateY(-1px); }
+#marker-right { transform: scaleY(1.02) scaleX(1.01) translateY(-9px) }
+#marker-left { transform: scaleY(1.012) translateY(-5px) }

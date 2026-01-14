@@ -1,0 +1,6 @@
+<section class="book-list full grid items-center" tabindex="-1" #bookList (mousemove)="focusBookList()"
+    (scrollend)="bookScroll($event)">
+    @for (book of books$ | async; track $index) {
+        <app-single-page type="book" [book-data]="book" (page-click)="gotoChapters($event)"></app-single-page>
+    }
+</section>

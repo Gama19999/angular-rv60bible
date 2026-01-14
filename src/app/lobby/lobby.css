@@ -1,0 +1,60 @@
+.lobby {
+    grid-template-columns: 5% 1fr 5%;
+    grid-template-rows: 15% 10% 1fr 10%;
+    color: var(--outline);
+}
+.app-name {
+    position: relative;
+    right: 7%;
+    padding-top: 1rem;
+}
+.logo {
+    position: relative;
+    left: 19%;
+    scale: 0.2;
+}
+.bible-version {
+    align-self: self-end;
+    width: 50%;
+}
+.search {
+    grid-template-columns: 100%;
+    grid-template-rows: 18% 1fr;
+}
+input { height: 60%; }
+.matches {
+    width: 77%;
+    max-height: 480px;
+    align-self: self-start;
+    background-color: var(--field-bg);
+    border-radius: 0 0 10px 10px;
+    gap: 1rem 0;
+    overflow-y: auto;
+    scrollbar-width: auto;
+    scrollbar-color: var(--matches-scrollbar) transparent;
+}
+.matches:has(app-lookup-match) {
+    padding: 0.8rem 1.3rem;
+}
+.btn-reader {
+    position: relative;
+    right: 2rem;
+}
+.app-version { 
+    align-self: self-end;
+    justify-self: right;
+    grid-column: 2 / 4;
+    margin-right: 5px;
+}
+@media screen and (min-height: 660px) and (max-height: 800px) { /***** SMALL SCREEN VIEW *****/
+    .app-name { 
+        right: 6%;
+        font-size: 4.5rem;
+    }
+    .logo {
+        left: 22%;
+        scale: 0.18;
+    }
+    .matches { max-height: 380px; }
+    .select { padding: 0.2rem 1rem; }
+}
