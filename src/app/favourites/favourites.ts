@@ -29,7 +29,7 @@ export class Favourites implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subs.push(this.route.parent!.params.subscribe(params => {
       const bibleId = params['bibleId'].toUpperCase();
-      this.titleSrv.setTitle(`${bibleId} | Favoritos`);
+      this.titleSrv.setTitle(`${bibleId.split('-')[1]} | Favoritos`);
       this.favourites$ = this.bibleSrv.getFavourites();
       setTimeout(() => this.readerSrv.bibleQuote$.next('Favoritos'), 100);
     }));

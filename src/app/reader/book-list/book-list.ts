@@ -28,7 +28,7 @@ export class BookList implements OnInit, AfterViewInit, OnDestroy {
     this.subs.push(this.route.parent!.params.subscribe(params => {
       this.bibleId = params['bibleId'].toUpperCase();
       this.books$ = this.bibleSrv.getBooks();
-      this.titleSrv.setTitle(`${this.bibleId} | Libros`);
+      this.titleSrv.setTitle(`${this.bibleId.split('-')[1]} | Libros`);
       setTimeout(() => this.readerSrv.bibleQuote$.next('Libros'), 100);
     }));
   }

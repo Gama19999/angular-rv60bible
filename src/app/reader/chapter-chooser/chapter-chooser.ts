@@ -34,7 +34,7 @@ export class ChapterChooser implements OnInit, OnDestroy {
   private handleReload(params: Params) {
     this.bookId = +params['bookId'];
     this.book$ = this.bibleSrv.getBook(this.bookId).then(bookInfo => {
-      this.titleSrv.setTitle(`${this.bibleId} | ${bookInfo.abr}.`);
+      this.titleSrv.setTitle(`${this.bibleId.split('-')[1]} | ${bookInfo.abr}.`);
       this.readerSrv.bibleQuote$.next(bookInfo.name);
       this.chapters = Array.from({ length: bookInfo.chapterCount }).map((_, idx) => idx + 1);
       return bookInfo;

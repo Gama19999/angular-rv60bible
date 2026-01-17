@@ -12,7 +12,6 @@ import { Theme } from './shared/util/app.types';
   selector: 'app-root',
   imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css',
 })
 export class App implements OnInit, OnDestroy {
   private subs: Subscription[] = [];

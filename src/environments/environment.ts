@@ -1,4 +1,4 @@
-const version = '2.0.0';
+const version = '2.0.1';
 const api = 'http://127.0.0.1:8001';
 export const environment = {
     production: false,

@@ -8,6 +8,10 @@
                 Tema de color <input type="button" id="theme" class="toggle pointer martel sn"
                     [value]="theme === 'light' ? 'claro' : 'oscuro'" (click)="toggleTheme()">
             </label>
+            <label for="font-size">
+                Tama&ntilde;o de letra <input type="button" id="font-size" class="toggle pointer martel sn"
+                    [value]="verseFontSize" (click)="changeFontSize()">
+            </label>
             <div style="height: 1rem;"></div>
             <ng-content></ng-content>
             <div style="height: 3rem;"></div>

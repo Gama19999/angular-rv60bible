@@ -7,6 +7,7 @@ export class CacheService {
   private readonly FADE = 'FADE';
   private readonly THEME = 'THEME';
   private readonly BIBLE_ID = 'BIBLE_ID';
+  private readonly VERSE_FONT_SIZE = 'VERSE_FS';
   
   constructor() {}
 
@@ -32,5 +33,13 @@ export class CacheService {
 
   getBibleId(): BibleId {
     return (localStorage.getItem(this.BIBLE_ID) ?? 'init') as BibleId;
+  }
+
+  setVerseFontSize(size: number) {
+    localStorage.setItem(this.VERSE_FONT_SIZE, size.toString());
+  }
+
+  getVerseFontSize(): number {
+    return +(localStorage.getItem(this.VERSE_FONT_SIZE) ?? 2);
   }
 }

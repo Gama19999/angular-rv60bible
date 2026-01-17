@@ -18,6 +18,7 @@ export class Modal implements OnInit, OnDestroy {
   @Input('height') height: string = '30%';
   @Output('close') close: EventEmitter<void> = new EventEmitter();
   theme!: Theme;
+  verseFontSize!: number;
   appContact = environment.appContact;
   appInfo = environment.appInfo;
 
@@ -25,12 +26,17 @@ export class Modal implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs.push(this.configSrv.theme$.subscribe(val => this.theme = val));
+    this.subs.push(this.configSrv.verseFontSize$.subscribe(val => this.verseFontSize = val));
   }
 
   closeModal() { this.close.emit(); }
 
   toggleTheme() {
     this.configSrv.toggleTheme();
+  }
+
+  changeFontSize() {
+    this.configSrv.setVerseFontSize(this.verseFontSize++ >= 4 ? 1 : this.verseFontSize++);
   }
 
   ngOnDestroy(): void {
