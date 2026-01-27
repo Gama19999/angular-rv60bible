@@ -87,6 +87,27 @@
                 }
               ]
             },
+            "cordova": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.cordova.ts"
+                }
+              ]
+            },
             "development": {
               "optimization": false,
               "extractLicenses": false,
@@ -104,6 +125,9 @@
             },
             "electron": {
               "buildTarget": "angular-rv60bible:build:electron"
+            },
+            "cordova": {
+              "buildTarget": "angular-rv60bible:build:cordova"
             },
             "development": {
               "buildTarget": "angular-rv60bible:build:development"

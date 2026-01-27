@@ -9,6 +9,12 @@ app-single-page {
     height: 70%;
 }
 @media screen and (min-height: 660px) and (max-height: 800px) { /***** SMALL SCREEN VIEW *****/
-    .logo { scale: 0.09; }
     .chapter-chooser { grid-template-columns: repeat(7, 1fr); }
+}
+@media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
+    .chapter-chooser { grid-template-columns: repeat(5, 1fr); }
+    app-single-page {
+        width: 80%;
+        height: 55%;
+    }
 }

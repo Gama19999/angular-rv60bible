@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
+import { environment } from '../../../environments/environment';
 import { BibleService } from '../../shared/services/bible.service';
 import { ConfigService } from '../../shared/services/config.service';
 import { ReaderService } from '../../shared/services/reader.service';
@@ -42,7 +43,7 @@ export class VerseViewer implements OnInit, AfterViewInit, OnDestroy {
     this.subs.push(this.route.params.subscribe(params => this.handleReload(params)));
     this.subs.push(this.readerSrv.reloadVerses$.subscribe(hashtag => {
       this.verseArray$ = this.bibleSrv.getVerses(this.bookId, this.chapterId);
-      this.handleInitScroll(this.route.snapshot.fragment ?? hashtag);
+      this.handleInitScroll(hashtag);
     }));
     this.subs.push(this.configSrv.verseFontSize$.subscribe(val => this.verseFontSize = val));
   }
@@ -66,15 +67,17 @@ export class VerseViewer implements OnInit, AfterViewInit, OnDestroy {
 
   private handleInitScroll(hashtag: string) {
     setTimeout(() => {
-      document.getElementById(hashtag)?.scrollIntoView({ behavior: 'smooth' });
+      const target = document.getElementById(hashtag);
+      target?.scrollIntoView({ behavior: 'smooth' });
+      if (environment.appInfo.platform === 'cordova' ) target?.focus();
     }, 500);
   }
 
   openMenu(evt: PointerEvent, verse: VerseInfo) {
     evt.preventDefault();
-    console.log(evt);
-    const posY = (window.innerHeight - 235) > evt.pageY ? evt.pageY : window.innerHeight - 235;
-    this.menuX = evt.pageX;
+    const posY = (window.innerHeight - 235) > evt.pageY ? evt.pageY : window.innerHeight - 240;
+    const posX = (window.innerWidth - 200) > evt.pageX ? evt.pageX : window.innerWidth - 205;
+    this.menuX = posX;
     this.menuY = posY;
     this.menuData = verse;
     this.menuHidden = false;

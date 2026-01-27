@@ -18,3 +18,11 @@
 .modal-title { border-bottom: 2px solid var(--onTertiary); }
 a { color: inherit; }
 a:hover, a:active { color: var(--secondary); }
+@media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
+    .card {
+        width: 90% !important;
+        text-align: center;
+    }
+    .close-mark { scale: 1.2; }
+    .sn { font-size: 1.2rem; }
+}

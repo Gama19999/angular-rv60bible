@@ -8,6 +8,7 @@ export interface BibleInfo {
     id: string;
     lang: string;
     name: string;
+    year: number;
 }
 
 export interface BookInfo {

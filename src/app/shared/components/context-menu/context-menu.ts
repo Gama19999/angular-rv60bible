@@ -24,7 +24,7 @@ export class ContextMenu {
 
   async copyVerse() {
     const bookName = (await this.bibleSrv.getBook(this.verseData!.bookId)).name
-    const verse = `"${this.verseData?.text.trim()}" ${bookName} ${this.verseData?.chapterId}:${this.verseData?.verseOrdinal} (${this.bibleSrv.bibleId$.value.toUpperCase()})`;
+    const verse = `"${this.verseData?.text.trim()}" ${bookName} ${this.verseData?.chapterId}:${this.verseData?.verseOrdinal} (${this.bibleSrv.bibleId$.value.split('-')[1].toUpperCase()})`;
     navigator.clipboard.writeText(verse);
     this.closeMenu();
   }

@@ -42,3 +42,6 @@ li:hover:not(.no-hover) { color: var(--secondary); }
     gap: 0.7rem 0;
 }
 .btn-report { padding: 0.2rem 0.4rem; }
+@media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
+    .close-mark { scale: 1.2; }
+}

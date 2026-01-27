@@ -1,18 +1,18 @@
 const version = '2.0.2';
-const api = '{}';
+const api = '';
 export const environment = {
     production: true,
     appInfo: {
         name: 'Biblia RV60',
-        version: `${version}-ele`,
+        version: `${version}-cor`,
         year: '2026',
-        platform: 'electron',
+        platform: 'cordova',
     },
     appContact: {
         developer: 'GAMARS',
         company: 'Serial30',
         siteUrl: 'https://bit.ly/rv60bible',
-        githubUrl: 'https://github.com/Gama19999/electron-rv60bible.git',
+        githubUrl: 'https://github.com/Gama19999/cordova-rv60bible.git',
     },
     api: {
         /** GET /versions */
