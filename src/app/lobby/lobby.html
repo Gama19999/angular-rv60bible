@@ -17,7 +17,7 @@
         </div>
     </div>
     @if (bibleId !== 'init') { <app-btn-reader class="btn-reader pointer c3 r3" (click)="gotoReader()"></app-btn-reader> }
-    <app-btn-config class="pointer c1 r4" (click)="configHidden = false"></app-btn-config>
+    <app-btn-config class="btn-config pointer c1 r4" (click)="configHidden = false"></app-btn-config>
     <app-modal height="fit-content" class="modal" [ngClass]="{'hidden': configHidden}"
         (close)="configHidden = true"></app-modal>
     <span class="app-version martel bold italic ss c3 r4">{{ appInfo.version }}</span>

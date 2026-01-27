@@ -8,7 +8,7 @@
             <span class="spectral italic" style="font-size: 2rem;">{{ bookData?.abr }}.</span>
             <span></span>
             <span class="spectral sn">Cap&iacute;tulos: {{ bookData?.chapterCount }}</span>
-            <span class="spectral sn">Autor: {{ parseCharacterMod(bookData!.author) }}</span>
+            <span class="spectral sn" [ngClass]="{'long-name': bookData ? bookData.author.length > 25 : false }">Autor: {{ parseCharacterMod(bookData!.author) }}</span>
             <span class="spectral sn" [ngClass]="{'long-name': bookData ? bookData.date.length > 15 : false }">Escrito {{ parseCharacterMod(bookData!.date) }}</span>
             <span></span>
             <span class="spectral italic sn">#{{ bookData?.bookOrdinal }}</span>

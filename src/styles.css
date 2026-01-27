@@ -31,6 +31,7 @@ html, body { height: 100%; }
     --select-bg: #fee495;
     --page-shadow: 5px 5px 15px 0 rgba(0,0,0,0.7);
     --highlight-text: var(--secondary);
+    --quote-shadow: var(--primary);
     --context-menu: #41424CFF;
     --color1: #30CB00FF;
     --color2: #48CAE3FF;
@@ -51,6 +52,7 @@ html, body { height: 100%; }
     --select-bg: #81acc3;
     --page-shadow: 5px 5px 7px 0 rgba(255, 255, 255, 0.45);
     --highlight-text: var(--primary);
+    --quote-shadow: var(--secondary);
     --context-menu: #D3D3D3FF;
     --color1: #30CB00FF;
     --color2: #FF4D00FF;
@@ -87,6 +89,20 @@ app-context-menu {
     z-index: 50;
     width: 200px;
 }
+@media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
+    app-book-list, app-chapter-chooser, app-verse-viewer, app-favourites {
+        grid-column: 1;
+        grid-row: 2 / 4;
+        width: 100%;
+    }
+    app-favourites {
+        height: 95%;
+    }
+    app-chapter-chooser, app-verse-viewer {
+        height: 95%;
+        align-self: center;
+    }
+}
 
 /***** CLASSES *****/
 .pointer { cursor: pointer; }
@@ -96,7 +112,6 @@ app-context-menu {
     width: 77%;
     height: 55%;
     align-self: flex-end;
-    field-sizing: content;
     outline: none;
     border: none;
     border-bottom: 7px solid var(--primary);

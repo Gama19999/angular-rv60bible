@@ -34,6 +34,12 @@
     .back-dark { background: url("assets/images/back-dark.webp") 50% 50% / 100% 100% no-repeat; }
     .light-page { background: url("assets/images/sheet-light.webp") 50% 50% / 100% 100% no-repeat; }
     .dark-page { background: url("assets/images/sheet-dark.webp") 50% 50% / 100% 100% no-repeat; }
+    @media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
+      .back-light, .back-dark {
+        background-size: auto 100%;
+        background-position: 0%;
+      }
+    }
   </style>
 </head>
 <body>

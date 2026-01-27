@@ -37,7 +37,9 @@ export class BibleService {
           error: failure => reject(failure)
         });
       });
-    } else return Promise.reject('Not implemented');
+    } else { // environment === 'cordova'
+      return await window.apacheCdv.versions();
+    }
   }
 
   setBibleId(bibleId: BibleId) {
@@ -61,7 +63,9 @@ export class BibleService {
           error: failure => reject(failure)
         });
       });
-    } else return Promise.reject('Not implemented');
+    } else { // environment === 'cordova'
+      return (await window.apacheCdv.getVersion(this._bibleId))[0];
+    }
   }
 
   async getBooks(): Promise<BookInfo[]> {
@@ -79,7 +83,9 @@ export class BibleService {
           error: failure => reject(failure)
         });
       });
-    } else return Promise.reject('Not implemented');
+    } else { // environment === 'cordova'
+      return await window.apacheCdv.books(this._bibleId);
+    }
   }
 
   async getBook(bookId: number): Promise<BookInfo> {
@@ -97,7 +103,9 @@ export class BibleService {
           error: failure => reject(failure)
         });
       });
-    } else return Promise.reject('Not implemented');
+    } else { // environment === 'cordova'
+      return (await window.apacheCdv.getBook(this._bibleId, bookId))[0];
+    }
   }
 
   async getVerses(bookId: number, chapterId: number): Promise<VerseInfo[]> {
@@ -115,7 +123,9 @@ export class BibleService {
           error: failure => reject(failure)
         });
       });
-    } else return Promise.reject('Not implemented');
+    } else { // environment === 'cordova'
+      return await window.apacheCdv.verses(this._bibleId, bookId, chapterId);
+    }
   }
 
   async getFavourites(): Promise<FavouriteInfo[]> {
@@ -133,7 +143,9 @@ export class BibleService {
           error: failure => reject(failure)
         });
       });
-    } else return Promise.reject('Not implemented');
+    } else { // environment === 'cordova'
+      return await window.apacheCdv.getFavourites(this._bibleId);
+    }
   }
 
   async setFavourite(verse: VerseInfo): Promise<VerseUpdateResp> {
@@ -151,7 +163,9 @@ export class BibleService {
           error: failure => reject(failure)
         });
       });
-    } else return Promise.reject('Not implemented');
+    } else { // environment === 'cordova'
+      return await window.apacheCdv.setFavourite(this._bibleId, verse);
+    }
   }
 
   async setColor(verse: VerseInfo): Promise<VerseUpdateResp> {
@@ -169,7 +183,9 @@ export class BibleService {
           error: failure => reject(failure)
         });
       });
-    } else return Promise.reject('Not implemented');
+    } else { // environment === 'cordova'
+      return await window.apacheCdv.setColors(this._bibleId, verse);
+    }
   }
 
   async lookup(value: LookupValue): Promise<LookupResp[]> {
@@ -188,7 +204,9 @@ export class BibleService {
           error: failure => reject(failure)
         });
       });
-    } else return Promise.reject('Not implemented');
+    } else { // environment === 'cordova'
+      return await window.apacheCdv.fastSearch(this._bibleId, value);
+    }
   }
 
   async reportError(error: ErrorReport): Promise<ErrorReportResp> {
@@ -207,6 +225,8 @@ export class BibleService {
           error: failure => reject(failure)
         });
       });
-    } else return Promise.reject('Not implemented');
+    } else { // environment === 'cordova'
+      return await window.apacheCdv.setError(error);
+    }
   }
 }

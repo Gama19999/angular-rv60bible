@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
+import { environment } from '../../../environments/environment';
 import { BibleService } from '../../shared/services/bible.service';
 import { ReaderService } from '../../shared/services/reader.service';
 import { SinglePage } from '../../shared/components/single-page/single-page';
@@ -18,6 +19,7 @@ import { BookInfo } from '../../shared/util/app.interfaces';
 export class BookList implements OnInit, AfterViewInit, OnDestroy {
   private subs: Subscription[] = [];
   private bibleId!: string;
+  isCordova: boolean = environment.appInfo.platform === 'cordova';
   books$!: Promise<BookInfo[]>;
 
   @ViewChild('bookList') bookList!: ElementRef<HTMLElement>;
@@ -48,6 +50,10 @@ export class BookList implements OnInit, AfterViewInit, OnDestroy {
     if (scrollLeft < 100) return;
     this.readerSrv.bookListScroll$.next(scrollLeft);
     this.focusBookList();
+  }
+
+  scrollTo(num: number) {
+    this.bookList.nativeElement.scrollTop = num;
   }
 
   gotoChapters(bookId: number) {

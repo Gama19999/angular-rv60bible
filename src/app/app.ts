@@ -26,6 +26,15 @@ export class App implements OnInit, OnDestroy {
         content: "default-src 'self'; connect-src 'self' http://127.0.0.1:*; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self';"
       });
       window.electron.getServerAddress().then(val => this.bibleSrv.apiAddress = val);
+    } else if (environment.appInfo.platform === 'cordova') {
+      this.metaSrv.addTag({
+        httpEquiv: 'Content-Security-Policy',
+        content: "default-src 'self' https://ssl.gstatic.com; connect-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self';"
+      });
+      this.metaSrv.updateTag({
+        name: 'viewport',
+        content: 'user-scalable=yes, initial-scale=1, maximum-scale=3, minimum-scale=1, width=device-width, height=device-height'
+      });
     }
     this.subs.push(this.configSrv.theme$.subscribe(val => this.theme = val));
   }

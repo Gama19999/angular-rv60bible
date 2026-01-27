@@ -8,9 +8,23 @@ app-single-page {
     box-shadow: var(--page-shadow);
 }
 .verse-container { outline: none; }
-.verse-container:hover {
-    background-color: var(--highlight-text);
-    text-shadow: none !important;
+@media screen and (hover: hover) and (pointer: fine) { /* PC with mouse */
+    .verse-container:hover {
+        background-color: var(--highlight-text);
+        text-shadow: none !important;
+    }
+}
+@media screen and (hover: none), (pointer: coarse) { /* Mobile or touchscreens */
+    .verse-container:focus {
+        background-color: var(--highlight-text);
+        text-shadow: none !important;
+    }
 }
 .verse-ordinal { margin-right: 0.7rem; }
 .vsn { font-size: 2rem; }
+@media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
+    app-single-page {
+        height: 100%;
+        max-height: 100%;
+    }
+}
