@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 import { BookList } from './book-list/book-list';
 import { ChapterChooser } from './chapter-chooser/chapter-chooser';
 import { VerseViewer } from './verse-viewer/verse-viewer';
-import { Favourites } from '../favourites/favourites';
+import { Favourites } from './favourites/favourites';
 
 export const readerRoutes: Routes = [
     { path: '', redirectTo: 'books', pathMatch: 'full' },

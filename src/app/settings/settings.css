@@ -1,0 +1,18 @@
+.settings {
+    background-color: var(--tertiary);
+    border-radius: 10px 10px 0 0;
+    color: var(--onTertiary);
+}
+.close-mark {
+    position: absolute;
+    right: 1%;
+    top: 1%;
+    font-size: 2rem;
+    font-weight: bold;
+}
+.app-button { color: var(--onTertiary); }
+#theme, #font-size, #tags, #scroll-behavior, #display-sleep, .app-link, .app-version { color: var(--settings-btn-color); }
+.footer { gap: 0 0.5rem; }
+.app-name, .app-developer, .app-windows, .app-android { text-align: center; }
+.app-link { text-decoration: none; }
+.app-link:hover { text-decoration: underline; }

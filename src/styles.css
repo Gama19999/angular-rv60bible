@@ -12,8 +12,8 @@ html, body { height: 100%; }
     /* Extras */
     --white: #FFFFFFFF;
     --black: #000000FF;
-    --shadow-dim: rgba(255, 255, 255, 0.2);
-    --shadow-lim: rgba(255, 255, 255, 0.5);
+    --cloud-light: rgba(70, 70, 70, 0.25);
+    --cloud-dark: rgba(140, 140, 140, 0.2);
 }
 
 /***** THEMES *****/
@@ -25,69 +25,93 @@ html, body { height: 100%; }
     --tertiary: #41424CFF;
     --onTertiary: var(--white);
     --outline: var(--black);
-    --backdrop-modal: rgba(255, 255, 255, 0.5);
-    --matches-scrollbar: rgba(0,0,0,0.4);
-    --field-bg: var(--shadow-lim);
-    --select-bg: #fee495;
+    --scrollbar-color: rgba(0,0,0,0.4);
+    --field-fill-color: var(--cloud-light);
+    --field-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
     --page-shadow: 5px 5px 15px 0 rgba(0,0,0,0.7);
+    --blur-base-filter: blur(3px);
     --highlight-text: var(--secondary);
     --quote-shadow: var(--primary);
-    --context-menu: #41424CFF;
+    --settings-btn-color: var(--secondary);
     --color1: #30CB00FF;
     --color2: #48CAE3FF;
-    --color3: #FF4D00FF;
-    --color4: rgb(255, 0, 217);
+    --color3: #1ABC9FFF;
+    --color4: #FF76EAFF;
 }
 .dark {
     --background: #161616FF;
     --onBackground: var(--primary);
-    --primary: #48CAE3FF;
-    --secondary: #0077B6FF;
-    --tertiary: #D3D3D3FF;
+    --primary: #32ABD0FF;
+    --secondary: #004660FF;
+    --tertiary: #A8BAC1FF;
     --onTertiary: var(--black);
     --outline: var(--white);
-    --backdrop-modal: rgba(0, 0, 0, 0.5);
-    --matches-scrollbar: rgba(255,255,255,0.5);
-    --field-bg: var(--shadow-dim);
-    --select-bg: #81acc3;
-    --page-shadow: 5px 5px 7px 0 rgba(255, 255, 255, 0.45);
+    --scrollbar-color: rgba(255,255,255,0.5);
+    --field-fill-color: var(--cloud-dark);
+    --field-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    --page-shadow: 5px 5px 15px 0 rgba(0,0,0,0.7);
+    --blur-base-filter: blur(3px) brightness(1.4);
     --highlight-text: var(--primary);
     --quote-shadow: var(--secondary);
-    --context-menu: #D3D3D3FF;
+    --settings-btn-color: var(--secondary);
     --color1: #30CB00FF;
-    --color2: #FF4D00FF;
+    --color2: #FF8652FF;
     --color3: #FFC100FF;
-    --color4: #0077B6FF;
+    --color4: #7A8ACFFF;
 }
 
 /***** COMPONENTS *****/
-app-fade, app-lobby, app-favourites, app-reader, app-book-list, app-verse-viewer {
+app-fade, app-search, app-reader, app-book-list, app-chapter-chooser, app-verse-viewer, app-favourites {
     width: 100%;
     height: 100%;
 }
-app-book-list, app-favourites {
-    grid-column: 3;
+app-book-list, app-chapter-chooser, app-verse-viewer, app-favourites {
+    grid-column: 2;
     grid-row: 2 / 4;
 }
-app-chapter-chooser {
-    height: 95%;
-    align-self: self-start;
+app-book-list {
+    grid-column: 2 / 4;
+    width: 95%;
+    justify-self: right;
+    margin-right: 2%;
 }
-app-chapter-chooser, app-verse-viewer {
-    grid-column: 3 / 5;
+app-chapter-chooser {
+    width: 90%;
+    justify-self: right;
+}
+app-verse-viewer {
     grid-row: 2 / 5;
-    width: 97%;
-    justify-self: left;
+    width: 95%;
+    justify-self: center;
+}
+app-favourites {
+    width: 95%;
+    justify-self: right;
 }
 app-lookup-match:focus, app-lookup-match:hover {
-    color: var(--primary) !important;
-    text-decoration: underline;
+    text-decoration-line: underline;
+    text-decoration-color: var(--primary);
+    text-decoration-style: double;
     outline: none;
+}
+app-lookup-match:hover {
+    text-decoration-style: dashed;
+    text-decoration-thickness: 5px;
 }
 app-context-menu {
     position: absolute;
-    z-index: 50;
+    z-index: 10;
     width: 200px;
+}
+app-btn-books, app-btn-chapters, app-btn-verses, app-btn-search, app-btn-favourites, app-btn-config, app-btn-change-book, app-btn-change-chapter { display: block; }
+app-settings {
+    width: 70%;
+    height: 60%;
+    position: absolute;
+    bottom: 0;
+    box-shadow: var(--page-shadow);
+    border-radius: 10px 10px 0 0;
+    z-index: 30;
 }
 @media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
     app-book-list, app-chapter-chooser, app-verse-viewer, app-favourites {
@@ -108,7 +132,18 @@ app-context-menu {
 .pointer { cursor: pointer; }
 .pointer:active { transform: scale(0.9); }
 .hidden { display: none !important; }
-.field {
+/* START used in AppComp */
+.ready {
+    --cl: var(--primary);
+    --bw: var(--outline);
+}
+.disabled {
+    --cl: var(--tertiary);
+    --bw: var(--tertiary);
+}
+/* END used in AppComp */
+/* START used in SearchComp, SettingsComp, ContextMenuComp */
+.app-field {
     width: 77%;
     height: 55%;
     align-self: flex-end;
@@ -118,22 +153,48 @@ app-context-menu {
     border-radius: 10px 10px 0 0;
     color: var(--outline);
     text-align: center;
-    background-color: var(--field-bg);
+    background-color: var(--field-fill-color);
     transition: border-color 500ms ease-in-out;
+    box-shadow: var(--field-shadow);
 }
-.field:focus { border-bottom-color: var(--secondary); }
-.field::placeholder, ::-webkit-input-placeholder { color: var(--outline); }
-select {
+select.app-field {
     padding: 0.5rem 1rem;
     cursor: pointer;
 }
-option {
+.app-field:focus { border-bottom-color: var(--secondary); }
+.app-field::placeholder, ::-webkit-input-placeholder { color: var(--outline); }
+select.app-field option {
     background-color: var(--primary);
     outline: none;
     border: none;
 }
+.dark select.app-field option { background-color: var(--secondary); }
+.app-button {
+    background-color: var(--field-fill-color);
+    color: var(--outline);
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    padding: 0 0.6rem;
+    box-shadow: var(--field-shadow);
+}
+/* END used in SearchComp, SettingsComp, ContextMenuComp */
+/* START used in ReaderComp */
+.blur-base {
+    box-shadow: var(--field-shadow);
+    padding: var(--blur-base-padding);
+    border-radius: 10px;
+    backdrop-filter: var(--blur-base-filter);
+}
+/* END used in ReaderComp */
+/* START used in FavouritesCom, VerseViewerComp, ContextMenuComp */
+.favourite { text-shadow: 2px 1px var(--highlight-text); }
+.color1 { text-shadow: 2px 1px var(--color1); }
+.color2 { text-shadow: 2px 1px var(--color2); }
+.color3 { text-shadow: 2px 1px var(--color3); }
+.color4 { text-shadow: 2px 1px var(--color4); }
+/* END used in FavouritesCom, VerseViewerComp, ContextMenuComp */
 .modal {
-    /* modal setup */
     position: absolute;
     top: 0;
     left: 0;
@@ -141,27 +202,10 @@ option {
     height: 100%;
     z-index: 100;
 }
-.toggle {
-    background-color: var(--backdrop-modal);
-    border: none;
-    border-radius: 10px;
-    padding: 0 10px;
-    color: var(--outline);
-    box-shadow: 4px 4px 2px 0 rgba(0,0,0,0.5);
-}
-.toggle:active {
-    outline: none;
-    box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.5);
-}
-.favourite { text-shadow: 2px 1px var(--highlight-text); }
-.color1 { text-shadow: 2px 1px var(--color1); }
-.color2 { text-shadow: 2px 1px var(--color2); }
-.color3 { text-shadow: 2px 1px var(--color3); }
-.color4 { text-shadow: 2px 1px var(--color4); }
 
-@media screen and (max-width: 1024px) { /***** SMALL SCREEN VIEW *****/
 
-}
+
+
 
 /***** DISPLAY *****/
 .flex {
@@ -201,7 +245,6 @@ option {
 .c2 { grid-column: 2; }
 .c23 { grid-column: 2 / 4; }
 .c3 { grid-column: 3; }
-.c34 { grid-column: 3 / 5; }
 .r1 { grid-row: 1; }
 .r2 { grid-row: 2; }
 .r23 { grid-row: 2 / 4; }
@@ -224,6 +267,7 @@ option {
     letter-spacing: 5px;
 }
 .sn { font-size: 1.4rem; }
+.si { font-size: 1rem; }
 .ss { font-size: 0.8rem; }
 
 /***** PATTERNS *****/

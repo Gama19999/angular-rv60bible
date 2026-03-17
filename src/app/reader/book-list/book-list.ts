@@ -1,14 +1,16 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { BibleService } from '../../shared/services/bible.service';
-import { ReaderService } from '../../shared/services/reader.service';
+import { BackendService } from '../../shared/services/backend.service';
+import { ConfigService } from '../../shared/services/config.service';
+import { StateService } from '../../shared/services/state.service';
 import { SinglePage } from '../../shared/components/single-page/single-page';
-import { BookInfo } from '../../shared/util/app.interfaces';
+import { BookData, Language, NavigationData } from '../../shared/util/app.interfaces';
+import { getTargetHashtag, parseCharacterMod, replace } from '../../shared/util/app.util';
 
 @Component({
   selector: 'app-book-list',
@@ -17,48 +19,59 @@ import { BookInfo } from '../../shared/util/app.interfaces';
   styleUrl: './book-list.css',
 })
 export class BookList implements OnInit, AfterViewInit, OnDestroy {
+  private readonly route = inject(ActivatedRoute);
+  private readonly titleSrv = inject(Title);
+  private readonly backendSrv = inject(BackendService);
+  private readonly configSrv = inject(ConfigService);
+  private readonly stateSrv = inject(StateService);
   private subs: Subscription[] = [];
-  private bibleId!: string;
+  private versionKey!: string;
+  books$!: Promise<BookData[]>;
+  lang!: Language;
   isCordova: boolean = environment.appInfo.platform === 'cordova';
-  books$!: Promise<BookInfo[]>;
 
   @ViewChild('bookList') bookList!: ElementRef<HTMLElement>;
 
-  constructor(private bibleSrv: BibleService, private readerSrv: ReaderService, private router: Router, private route: ActivatedRoute, private titleSrv: Title) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.subs.push(this.route.parent!.params.subscribe(params => {
-      this.bibleId = params['bibleId'].toUpperCase();
-      this.books$ = this.bibleSrv.getBooks();
-      this.titleSrv.setTitle(`${this.bibleId.split('-')[1]} | Libros`);
-      setTimeout(() => this.readerSrv.bibleQuote$.next('Libros'), 100);
+      this.versionKey = params['versionKey'];
+      this.books$ = this.backendSrv.getBooks();
     }));
+    this.subs.push(this.configSrv.language$.subscribe(lang => this.setTitle(lang)));
+    this.stateSrv.setCurrentView('books');
+  }
+
+  private setTitle(lang: Language) {
+    this.lang = lang;
+    const titleStr = this.lang.str.books.title;
+    const title = replace(titleStr, this.versionKey.toUpperCase());
+    this.titleSrv.setTitle(title);
+    setTimeout(() => this.stateSrv.bibleQuote$.next(this.lang.str.books.quote), 100);
   }
 
   ngAfterViewInit(): void {
-    this.subs.push(this.readerSrv.bookListScroll$.subscribe(val => {
-      setTimeout(() => this.bookList.nativeElement.scrollLeft = val, 100);
-    }));
+    this.subs.push(this.stateSrv.booksScroll$.subscribe(bs => setTimeout(() => {
+      if (this.isCordova) this.bookList.nativeElement.scrollTop = bs;
+      else this.bookList.nativeElement.scrollLeft = bs;
+    }, 100)));
   }
 
-  focusBookList() {
-    this.bookList.nativeElement.focus();
+  onEndScroll(evt: Event) {
+    const el = (evt.target as HTMLElement);
+    const scrolled = this.isCordova ? el.scrollTop : el.scrollLeft;
+    if (scrolled > 100) this.stateSrv.setBooksScroll(scrolled);
   }
 
-  bookScroll(evt: Event) {
-    const scrollLeft = (evt.target as HTMLElement).scrollLeft;
-    if (scrollLeft < 100) return;
-    this.readerSrv.bookListScroll$.next(scrollLeft);
-    this.focusBookList();
-  }
-
-  scrollTo(num: number) {
-    this.bookList.nativeElement.scrollTop = num;
-  }
+  getHashtag = (book: BookData) => getTargetHashtag(book.name, book.bookId);
 
   gotoChapters(bookId: number) {
-    this.router.navigate([bookId, 'chapters'], { relativeTo: this.route });
+    const navData: NavigationData = { versionKey: this.versionKey, bookId: bookId };
+    this.stateSrv.navigate('chapters', navData);
   }
+
+  parse = (value: string) => parseCharacterMod(value, this.lang);
 
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe());

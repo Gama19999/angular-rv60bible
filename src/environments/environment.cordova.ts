@@ -1,5 +1,4 @@
-const version = '2.0.2';
-const api = '';
+const version = '3.0.0';
 export const environment = {
     production: true,
     appInfo: {
@@ -10,30 +9,24 @@ export const environment = {
     },
     appContact: {
         developer: 'GAMARS',
+        contact: 'https://bit.ly/4sNldOD',
         company: 'Serial30',
         siteUrl: 'https://bit.ly/rv60bible',
-        githubUrl: 'https://github.com/Gama19999/cordova-rv60bible.git',
+        electronGit: 'https://github.com/Gama19999/electron-rv60bible.git',
+        cordovaGit: 'https://github.com/Gama19999/cordova-rv60bible.git',
     },
     api: {
-        /** GET /versions */
-        versions: api + '/versions',
-        /** GET /versions/{} */
-        getVersion: api + '/versions/{}',
-        /** GET /versions/{}/books */
-        books: api + '/versions/{}/books',
-        /** GET /versions/{}/books/{} */
-        getBook: api + '/versions/{}/books/{}',
-        /** GET /versions/{}/books/{}/chapters/{}/verses */
-        verses: api + '/versions/{}/books/{}/chapters/{}/verses',
-        /** GET /versions/{}/favourites */
-        getFavourites: api + '/versions/{}/favourites',
-        /** PUT /versions/{}/favourites */
-        setFavourite: api + '/versions/{}/favourites',
-        /** PUT /versions/{}/colors */
-        setColors: api + '/versions/{}/colors',
-        /** POST /versions/{}/lookup */
-        lookup: api + '/versions/{}/lookup',
-        /** POST /errors */
-        setError: api + '/errors'
+        root: '',
+        getRoot: () => environment.api.root,
+        versions: () => environment.api.getRoot() + '/versions',
+        getVersion: (versionKey: string) => `${environment.api.getRoot()}/versions/${versionKey}`,
+        books: (versionKey: string) =>`${environment.api.getRoot()}/versions/${versionKey}/books`,
+        getBook: (versionKey: string, bookId: number) => `${environment.api.getRoot()}/versions/${versionKey}/books/${bookId}`,
+        verses: (versionKey: string, bookId: number, chapterId: number) => `${environment.api.getRoot()}/versions/${versionKey}/books/${bookId}/chapters/${chapterId}/verses`,
+        favourites: (versionKey: string) => `${environment.api.getRoot()}/versions/${versionKey}/favourites`,
+        singleFavourite: (versionKey: string, favouriteId: any) => `${environment.api.favourites(versionKey)}/${favouriteId}`,
+        lookup: (versionKey: string) => `${environment.api.getRoot()}/versions/${versionKey}/lookup`,
+        reports: () => environment.api.getRoot() + '/app/reports',
+        defragment: () => environment.api.getRoot() + '/app/defragment',
     },
 };

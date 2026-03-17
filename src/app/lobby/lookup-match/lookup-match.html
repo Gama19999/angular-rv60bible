@@ -1,8 +1,0 @@
-<div class="lookup-match grid items-center pointer martel sn" [attr.data-book-id]="matchData.bookId"
-    [attr.data-book-name]="matchData.bookName" [attr.data-chapter-id]="matchData.chapterId"
-    [attr.data-verse-ordinal]="matchData.verseOrdinal" (click)="openAt()">
-    <span class="martel bold">
-        {{ matchData.bookName }} {{ matchData.chapterId }}{{ matchData.verseOrdinal ? ':' + matchData.verseOrdinal : '' }}
-    </span>
-    <span class="match-text">{{ matchData.text }}</span>
-</div>

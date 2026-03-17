@@ -1,0 +1,5 @@
+.lookup-match {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(2, min-content);
+}
+.match-text { text-align: center; }

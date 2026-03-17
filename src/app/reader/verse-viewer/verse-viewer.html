@@ -1,13 +1,48 @@
 <section class="verse-viewer full grid items-center">
     <app-single-page type="verses">
-        @for (verse of verseArray$ | async; track $index) {
-            <div [id]="getVerseHashtag(bookData.name, verse.chapterId, verse.verseOrdinal)" [tabindex]="-1"
-                class="verse-container {{ verse.color }}" (contextmenu)="openMenu($event, verse)">
-                <span class="verse-ordinal martel bold" [ngStyle]="{'font-size.rem': verseFontSize === 1 ? 1.3 : verseFontSize}">{{ verse.verseOrdinal }}</span>
-                <span class="verse-text spectral" [ngStyle]="{'font-size.rem': verseFontSize === 1 ? 1.3 : verseFontSize}">{{ verse.text }}</span>
+        @for (verse of verses$ | async; track $index) {
+            <div [id]="getHashtag(verse)" [tabindex]="-1"
+                class="verse-container {{ verse.color }}"
+                [style.fontSize.rem]="verseFontSize"
+                (contextmenu)="openMenu($event, verse)">
+                <span class="verse-ordinal martel bold">{{ verse.verseOrdinal }}</span>
+                <span class="verse-text spectral">{{ verse.text }}</span>
             </div>
         }
     </app-single-page>
-    <app-context-menu [verse-data]="menuData" [ngClass]="{'hidden': menuHidden}"
-        [ngStyle]="{'top.px': menuY, 'left.px': menuX}" (close)="this.menuHidden = true"></app-context-menu>
+    <nav class="verses-navigation flex flex-center">
+        <div class="prev-book">
+            <app-btn-change-book class="ready blur-base" [class.disabled]="!verseViewerChange.prevBook?.bookId"
+                [class.pointer]="verseViewerChange.prevBook?.bookId" direction="prev"
+                [tag]="lang.str.verses.prevBook(verseViewerChange.prevBook?.bookName)"
+                [change-data]="verseViewerChange">
+            </app-btn-change-book>
+        </div>
+        <div class="next-book">
+            <app-btn-change-book class="ready blur-base" [class.disabled]="!verseViewerChange.nextBook?.bookId"
+                [class.pointer]="verseViewerChange.nextBook?.bookId" direction="next"
+                [tag]="lang.str.verses.nextBook(verseViewerChange.nextBook?.bookName)"
+                [change-data]="verseViewerChange">
+            </app-btn-change-book>
+        </div>
+        <div class="prev-chapter">
+            <app-btn-change-chapter class="ready blur-base" [class.disabled]="!verseViewerChange.prevChapterId"
+                [class.pointer]="verseViewerChange.prevChapterId" direction="prev"
+                [tag]="lang.str.verses.prevChapter(verseViewerChange.prevChapterId)"
+                [change-data]="verseViewerChange">
+            </app-btn-change-chapter>
+        </div>
+        <div class="next-chapter">
+            <app-btn-change-chapter class="ready blur-base" [class.disabled]="!verseViewerChange.nextChapterId"
+                [class.pointer]="verseViewerChange.nextChapterId" direction="next"
+                [tag]="lang.str.verses.nextChapter(verseViewerChange.nextChapterId)"
+                [change-data]="verseViewerChange">
+            </app-btn-change-chapter>
+        </div>
+    </nav>
+    @if (menuOpen) {
+        <app-context-menu [data]="menuData" [style.top.px]="menuData.top" [style.left.px]="menuData.left"
+            (close)="menuOpen = false">
+        </app-context-menu>
+    }
 </section>

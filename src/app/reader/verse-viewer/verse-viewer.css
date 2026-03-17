@@ -8,10 +8,25 @@ app-single-page {
     box-shadow: var(--page-shadow);
 }
 .verse-container { outline: none; }
+.verse-ordinal { margin-right: 0.7rem; }
+.verses-navigation {
+    flex-flow: column wrap;
+    gap: 2rem 0;
+    position: absolute;
+    right: 1%;
+    --blur-base-padding: 5px 2px 2px 2px;
+}
 @media screen and (hover: hover) and (pointer: fine) { /* PC with mouse */
+    .verse-container:focus {
+        text-decoration-line: underline;
+        text-decoration-color: var(--quote-shadow);
+        text-decoration-style: dashed;
+        text-decoration-thickness: 5px;
+    }
     .verse-container:hover {
         background-color: var(--highlight-text);
         text-shadow: none !important;
+        text-decoration: none !important;
     }
 }
 @media screen and (hover: none), (pointer: coarse) { /* Mobile or touchscreens */
@@ -20,8 +35,9 @@ app-single-page {
         text-shadow: none !important;
     }
 }
-.verse-ordinal { margin-right: 0.7rem; }
-.vsn { font-size: 2rem; }
+@media screen and (max-width: 1300px) { /***** SMALL SCREEN VIEW *****/
+    app-btn-change-book, app-btn-change-chapter { scale: 0.8; }
+}
 @media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
     app-single-page {
         height: 100%;

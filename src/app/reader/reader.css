@@ -1,46 +1,45 @@
 .reader {
-    grid-template-columns: 5% 20% 70% 5%;
+    grid-template-columns: 5% 90% 5%;
     grid-template-rows: 10% repeat(2, 1fr) 10%;
+    --blur-base-padding: 0 1rem;
 }
 .logo { scale: 0.1; }
 .bible-info {
-    color: var(--outline);
     justify-self: start;
+    color: var(--outline);
     text-shadow: -2px -2px var(--quote-shadow);
 }
 .bible-quote {
+    justify-self: end;
     color: var(--outline);
     text-shadow: -3px -2px var(--quote-shadow);
-    justify-self: end;
-    font-size: 2.2rem;
-    margin-right: 3%;
+    font-size: 2rem;
 }
-.bible-navigation {
-    justify-content: center;
-    align-content: center;
-    gap: 15% 0;
+.bible-versions {
+    position: absolute;
+    width: max-content;
+    height: min-content;
+    gap: 1rem 0;
+    background-color: var(--tertiary);
+    color: var(--onTertiary);
+    outline: 5px solid var(--secondary);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: inset var(--field-shadow), var(--page-shadow);
+    z-index: 20;
 }
-.field {
-    width: 90%;
-    max-width: 90%;
-    height: 3.5rem;
-    font-size: 1.2rem;
-    align-self: self-start;
-    background-color: var(--field-bg);
+.close-mark {
+    position: absolute;
+    top: -1%;
+    right: 9px;
 }
-.book-navigation, .chapter-navigation { gap: 2rem 0; }
-.toggle {
-    background-color: var(--field-bg);
-    width: 90%;
+.bible-option:hover { text-decoration: underline; }
+.current-bible {
+    color: var(--settings-btn-color);
+    text-decoration: underline;
 }
 @media screen and (min-height: 660px) and (max-height: 800px) { /***** SMALL SCREEN VIEW *****/
-    .bible-navigation { gap: 13% 0; }
-    .select {
-        height: 3rem;
-        font-size: 1rem;
-    }
-    .book-navigation, .chapter-navigation { gap: 1.5rem 0; }
-    .toggle { font-size: 1.2rem; }
+    
 }
 @media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
     .reader {
@@ -65,33 +64,4 @@
         font-size: 1.5rem;
         margin-right: 0;
     }
-    .bible-navigation {
-        position: absolute;
-        z-index: 60;
-        backdrop-filter: brightness(0.25) blur(3px);
-    }
-    .bible-revision {
-        position: absolute;
-        top: 2rem;
-        text-align: center;
-    }
-    .bible-revision:active { box-shadow: 4px 4px 2px 0 rgba(0,0,0,0.5); }
-    .btn-config {
-        position: relative;
-        left: -40%;
-        scale: 0.9;
-    }
-    .open-nav {
-        position: absolute;
-        z-index: 60;
-        bottom: 20px;
-        background-color: var(--primary);
-        padding: 4px 6px;
-        outline: 3px solid var(--outline);
-        border-radius: 5px;
-        box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
-        color: var(--outline);
-        font-size: 1.2rem;
-    }
-    .sn { font-size: 1.2rem; }
 }

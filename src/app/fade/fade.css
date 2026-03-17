@@ -8,7 +8,7 @@
     align-self: center;
     scale: 0.85;
     /* duration | easing-function | delay | iteration-count | direction | fill-mode | play-state | name */
-    animation: 2s cubic-bezier(0.47, 1.94, 0.31, 0.8) 0s 1 normal both running appear;
+    animation: 1.5s cubic-bezier(0.47, 1.94, 0.31, 0.8) 0s 1 normal both running appear;
 }
 .app-name {
     align-self: self-end;

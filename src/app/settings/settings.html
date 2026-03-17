@@ -1,0 +1,53 @@
+<div class="settings grid items-center full">
+    <span class="close-mark pointer" (click)="closeSettings()">&#10008;</span>
+    <span class="martel bold sn">{{ lang.str.settings.quote }}</span>
+    <label for="theme" class="martel">
+        {{ lang.str.settings.theme.label }} &nbsp;
+        <input type="button" id="theme" [value]="lang.str.settings.theme.value(theme$ | async)"
+            class="app-button pointer martel si" (click)="toggleTheme()">
+    </label>
+    <label for="font-size" class="martel">
+        {{ lang.str.settings.fontSize.label }} &nbsp;
+        <input type="button" value="-" class="app-button pointer martel bold si" (click)="smallerFS()"> &nbsp;
+        <span id="font-size" class="sn">{{ verseFontSize$ | async }}</span> &nbsp;
+        <input type="button" value="+" class="app-button pointer martel bold si" (click)="biggerFS()">
+    </label>
+    <label for="tags" class="martel">
+        {{ lang.str.settings.tags.label }} &nbsp;
+        <input type="button" id="tags" [value]="lang.str.settings.tags.value(tagsOn$ | async)"
+            class="app-button pointer martel si" (click)="toggleTags()">
+    </label>
+    <label for="scroll-behavior" class="martel">
+        {{ lang.str.settings.scrollBehavior.label }} &nbsp;
+        <input type="button" id="scroll-behavior" [value]="lang.str.settings.scrollBehavior.value(smoothScroll$ | async)"
+            class="app-button pointer martel si" (click)="toggleSmoothScroll()">
+    </label>
+    @if (displayCanSleep$) {
+        <label for="display-sleep" class="martel">
+            {{ lang.str.settings.displaySleep.label }} &nbsp;
+            <input type="button" id="display-sleep" [value]="lang.str.settings.displaySleep.value(displayCanSleep$ | async)"
+                class="app-button pointer martel si" (click)="toggleDisplaySleep()">
+        </label>
+    } @else { <div class="spacer"></div> }
+    <div class="footer flex flex-center">
+        <span class="app-name full-w martel bold">{{ appInfo.name }} | {{ appInfo.year }}</span>
+        <span class="app-developer full-w martel ss">
+            {{ lang.str.settings.app.developer }}&nbsp;
+            <a [href]="appContact.contact" target="_blank" class="app-link">{{ appContact.developer }}</a>
+        </span>
+        <span class="app-windows full-w martel ss">
+            {{ lang.str.settings.app.windows }}&nbsp;
+            <a [href]="appContact.electronGit" target="_blank" class="app-link">GitHub</a>&nbsp; o en&nbsp;
+            <a [href]="appContact.siteUrl" target="_blank" class="app-link">{{ appContact.company }}</a>
+        </span>
+        <span class="app-android full-w martel ss">
+            {{ lang.str.settings.app.android }}&nbsp;
+            <a [href]="appContact.cordovaGit" target="_blank" class="app-link">GitHub</a>&nbsp; o en&nbsp;
+            <a [href]="appContact.siteUrl" target="_blank" class="app-link">{{ appContact.company }}</a>
+        </span>
+        <span class="app-version spectral italic ss">{{ appInfo.version }}</span>
+        <span class="app-defragment app-link pointer spectral italic ss" (click)="defragment()">
+            {{ lang.str.settings.defragment.label }}
+        </span>
+    </div>
+</div>

@@ -9,5 +9,8 @@ app-single-page {
     background-color: var(--highlight-text);
     text-shadow: none !important;
 }
-.vsn { font-size: 2rem; }
 .bible-quote { margin-right: 0.7rem; }
+.date {
+    margin-left: 1rem;
+    text-shadow: none !important;
+}

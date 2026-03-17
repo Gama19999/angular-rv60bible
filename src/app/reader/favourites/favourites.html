@@ -1,0 +1,21 @@
+<section class="favourites full grid items-center">
+    <app-single-page type="verses" class="full">
+        @for (favourite of favourites$ | async; track $index) {
+        <div class="fav-txt spectral vsn {{ favourite.color }}"
+            [style.fontSize.rem]="verseFontSize"
+            (contextmenu)="openMenu($event, favourite)"
+            (click)="openVerse(favourite)">
+            <span class="bible-quote martel bold" >
+                {{ favourite.bookName }} {{ favourite.chapterId }}:{{ favourite.verseOrdinal }}
+            </span>
+            <span>{{ favourite.text }}</span>
+            <span class="date martel italic si">{{ favourite.date | date }}</span>
+        </div>
+        }
+    </app-single-page>
+    @if (menuOpen) {
+        <app-context-menu [data]="menuData" [style.top.px]="menuData.top"[style.left.px]="menuData.left"
+            (close)="menuOpen = false">
+        </app-context-menu>
+    }
+</section>

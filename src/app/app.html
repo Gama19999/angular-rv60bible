@@ -1,3 +1,37 @@
-<main class="app full flex flex-center {{ theme }} back-{{ theme }}">
+<main class="app full flex flex-center {{ theme$ | async }} back-{{ theme$ | async }}">
     <router-outlet></router-outlet>
+    @if ((viewTrack$ | async)?.current !== 'fade') {
+        <nav class="navigation flex flex-center">
+            <div class="books">
+                <app-btn-books class="ready blur-base pointer" [tag]="lang.str.books.quote" (click)="goto('books')"></app-btn-books>
+            </div>
+            <div class="verses-chapters">
+                @if ((viewTrack$ | async)?.current !== 'verses') {
+                    <app-btn-verses class="ready blur-base" [tag]="lang.str.verses.quote"
+                        [class.disabled]="(viewTrack$ | async)?.previous !== 'verses'"
+                        [class.pointer]="(viewTrack$ | async)?.previous === 'verses'"
+                        (click)="goto('verses')">
+                    </app-btn-verses>
+                } @else {
+                    <app-btn-chapters class="ready blur-base pointer" [tag]="lang.str.chapters.quote"
+                        (click)="goto('chapters')">
+                    </app-btn-chapters>
+                }
+            </div>
+            <div class="search">
+                <app-btn-search class="ready blur-base pointer" [tag]="lang.str.search.quote" (click)="goto('search')"></app-btn-search>
+            </div>
+            <div class="favourites">
+                <app-btn-favourites class="ready blur-base pointer" [tag]="lang.str.favourites.quote"
+                    (click)="goto('favourites')">
+                </app-btn-favourites>
+            </div>
+            <div class="settings">
+                <app-btn-config class="ready blur-base pointer" [tag]="lang.str.settings.quote"
+                    (click)="goto('settings')">
+                </app-btn-config>
+            </div>
+        </nav>
+    }
+    @if (settingsOn$ | async) { <app-settings></app-settings> }
 </main>

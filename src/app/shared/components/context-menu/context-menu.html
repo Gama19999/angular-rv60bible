@@ -1,20 +1,26 @@
-<menu class="context-menu martel grid items-center">
+<menu class="context-menu blur-base grid items-center martel">
     <span class="close-mark pointer c2 r1" (click)="closeMenu()">&#10008;</span>
-    <li class="pointer c12 r1" (click)="copyVerse()">Copiar vers&iacute;culo</li>
-    <li class="pointer c12 r2" (click)="toggleFavourite()">{{ verseData?.isFavourite ? 'Desmarcar' : 'Marcar' }} favorito</li>
-    <li class="colors no-hover flex full-w c12 r3">
-        <span class="full-w">Resaltar vers&iacute;culo</span>
-        <input type="button" [value]="verseData?.color === 'color1' ? '✘' : ''" class="btn-color pointer color1" (click)="setColor('color1')">
-        <input type="button" [value]="verseData?.color === 'color2' ? '✘' : ''" class="btn-color pointer color2" (click)="setColor('color2')">
-        <input type="button" [value]="verseData?.color === 'color3' ? '✘' : ''" class="btn-color pointer color3" (click)="setColor('color3')">
-        <input type="button" [value]="verseData?.color === 'color4' ? '✘' : ''" class="btn-color pointer color4" (click)="setColor('color4')">
-    </li>
-    @if (view === 'verse-viewer') {
-        <li class="pointer c12 r4" (click)="reportsHidden = !reportsHidden">Reportar vers&iacute;culo</li>
-        <li class="reports flex full-w c12" [ngClass]="{'hidden': reportsHidden}">
-            <input type="button" class="toggle btn-report pointer martel" value="Contenido erroneo" (click)="reportVerse(1)">
-            <input type="button" class="toggle btn-report pointer martel" value="Verso anterior faltante" (click)="reportVerse(2)">
-            <input type="button" class="toggle btn-report pointer martel" value="Verso siguiente faltante" (click)="reportVerse(3)">
+    @if (data.verse) {
+        <li class="pointer c12 r1" (click)="copy()">{{ lang.str.menu.copy }}</li>
+        <li class="pointer c12 r2" (click)="toggleFavourite()">{{ +data.verse.isFavourite ? lang.str.menu.removeFavourite : lang.str.menu.addFavourite }}</li>
+        @if (!+data.verse.isFavourite) {
+            <li class="colors pointer flex full-w c12 r3">
+                <span class="full-w" (click)="hiddenColors = false">{{ lang.str.menu.color }}</span>
+                @if (!hiddenColors) {
+                    <input type="button" [value]="data.verse.color === 'color1' ? '✘' : ''" class="btn-color pointer color1" (click)="setColor('color1')">
+                    <input type="button" [value]="data.verse.color === 'color2' ? '✘' : ''" class="btn-color pointer color2" (click)="setColor('color2')">
+                    <input type="button" [value]="data.verse.color === 'color3' ? '✘' : ''" class="btn-color pointer color3" (click)="setColor('color3')">
+                    <input type="button" [value]="data.verse.color === 'color4' ? '✘' : ''" class="btn-color pointer color4" (click)="setColor('color4')">
+                }
+            </li>
+        }
+        <li class="reports no-hover flex full-w c12" [class]="{'r4': !+data.verse.isFavourite, 'r3': +data.verse.isFavourite}">
+            <input type="button" class="app-button btn-report pointer martel" [value]="lang.str.menu.wrongContent" (click)="reportVerse(1)">
+        </li>
+    } @else {
+        <li class="reports no-hover flex full-w c12 r1">
+            <input type="button" class="toggle btn-report pointer martel" [value]="lang.str.menu.error" (click)="openModal('error')">
+            <input type="button" class="toggle btn-report pointer martel" [value]="lang.str.menu.feedback" (click)="openModal('feedback')">
         </li>
     }
 </menu>

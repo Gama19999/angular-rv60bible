@@ -1,0 +1,15 @@
+.navigation {
+    flex-flow: column wrap;
+    gap: 2rem 0;
+    position: absolute;
+    left: 1%;
+    top: 17%;
+    --blur-base-padding: 5px 2px 5px 2px;
+}
+@media screen and (max-width: 1300px) { /***** SMALL SCREEN VIEW *****/
+    .navigation {
+        gap: 1.5rem 0;
+        top: 15%;
+    }
+    app-btn-books, app-btn-chapters, app-btn-verses, app-btn-search, app-btn-favourites, app-btn-config { scale: 0.8; }
+}

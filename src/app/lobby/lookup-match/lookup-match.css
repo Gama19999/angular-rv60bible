@@ -1,8 +1,0 @@
-.lookup-match {
-    grid-template-columns: 100%;
-    grid-template-rows: repeat(2, min-content);
-}
-.match-text { text-align: center; }
-@media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
-    .sn { font-size: 1.2rem; }
-}

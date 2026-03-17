@@ -1,0 +1,28 @@
+<section class="search full grid items-center">
+    <span class="app-name martel bold st c2 r1">{{ appName }}</span>
+    <app-logo class="app-logo c2 r1"></app-logo>
+    <div class="lookup-filters flex flex-center c2 r2">
+        <select id="select-version-key" class="app-field version-key martel sn" [title]="lang.str.search.bibleVersion"
+            [(ngModel)]="versionKey" (change)="setVersionKey($event)">
+            <option value="init">{{ lang.str.search.init }}</option>
+            @for (bible of versions$ | async; track $index) {
+                <option [value]="bible.versionKey" [attr.data-lang]="bible.lang">{{ bible.name }}</option>
+            }
+        </select>
+        <input type="button" class="app-button lookup-mode pointer martel sn" [title]="lang.str.search.lookupFilter"
+            [value]="lang.str.search[lookupMode]" (click)="toggleLookupMode()">
+    </div>
+    <div class="lookup-form full grid items-center c2 r34">
+        <input type="search" id="input-lookup-value" #lookupEl class="app-field lookup-value martel sn"
+            [placeholder]="lang.str.search.lookup[lookupMode]" autocomplete="off"
+            (input)="getLookup($event.target)" (keyup)="handleLookupKey($event)">
+        <div class="lookup-match-list grid items-center" #matchesEl (keyup)="handleMatchesKey($event)">
+            <ng-container #matchList></ng-container>
+        </div>
+    </div>
+    @if (menuOpen) {
+        <app-context-menu [data]="menuData" [style.top.px]="menuData.top"[style.left.px]="menuData.left"
+            (close)="menuOpen = false">
+        </app-context-menu>
+    }
+</section>

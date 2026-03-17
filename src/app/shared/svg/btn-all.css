@@ -1,0 +1,12 @@
+.control-btn {
+    width: 70px;
+}
+.nav-text { color: var(--bw); }
+.tag {
+    display: inline-block;
+    color: var(--bw);
+    max-width: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+}

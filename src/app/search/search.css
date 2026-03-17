@@ -1,0 +1,97 @@
+.search {
+    grid-template-columns: 5% 1fr 5%;
+    grid-template-rows: 15% 10% 1fr 10%;
+    color: var(--outline);
+}
+.app-name {
+    position: relative;
+    right: 7%;
+    padding-top: 1rem;
+    text-shadow: -3px -3px var(--quote-shadow);
+    text-transform: uppercase;
+}
+.app-logo {
+    position: relative;
+    left: 19%;
+    scale: 0.2;
+}
+.lookup-filters {
+    width: 77%;
+    align-self: self-end;
+    gap: 0 2rem;
+}
+.version-key { width: max-content; }
+.lookup-mode { 
+    min-width: 35%;
+    max-width: max-content;
+    min-height: stretch;
+}
+.lookup-form {
+    grid-template-columns: 100%;
+    grid-template-rows: 18% 1fr;
+}
+.lookup-form .app-field::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1.3rem;
+    height: 1.3rem;
+    margin-right: 10px;
+    cursor: pointer;
+    background:
+        linear-gradient(to top right, transparent calc(50% - 3px), var(--primary) calc(50% - 3px), var(--primary) calc(50% + 3px), transparent calc(50% + 3px)),
+        linear-gradient(to top left, transparent calc(50% - 3px), var(--primary) calc(50% - 3px), var(--primary) calc(50% + 3px), transparent calc(50% + 3px));
+    background-repeat: no-repeat;
+}
+.lookup-match-list {
+    width: 77%;
+    max-height: 480px;
+    align-self: self-start;
+    background-color: var(--field-fill-color);
+    border-radius: 0 0 10px 10px;
+    gap: 1rem 0;
+    overflow-y: auto;
+    scrollbar-width: auto;
+    scrollbar-color: var(--scrollbar-color) transparent;
+}
+.lookup-match-list:has(app-lookup-match) { padding: 0.8rem 1.3rem; }
+@media screen and (min-height: 660px) and (max-height: 800px) { /***** SMALL SCREEN VIEW *****/
+    .app-name { 
+        right: 6%;
+        font-size: 4.5rem;
+    }
+    .app-logo {
+        left: 22%;
+        scale: 0.17;
+    }
+    .lookup-match-list { max-height: 380px; }
+    .app-field { padding: 0.2rem 1rem; }
+}
+@media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
+    .search {
+        grid-template-columns: 100%;
+        grid-template-rows: 10% 10% 1fr 10%;
+        padding: 0.5rem;
+    }
+    .search > * {
+        grid-column: 1;
+        justify-self: center;
+    }
+    .app-name {
+        position: relative;
+        left: 1rem;
+        padding-top: 0;
+        text-shadow: -2px -2px var(--quote-shadow);
+    }
+    .app-logo {
+        left: -40%;
+        scale: 0.09;
+    }
+    .app-field, .lookup-match-list { width: 95%; }
+    .app-field { padding: 0.5rem; }
+    .lookup-form { grid-template-rows: 15% 1fr; }
+    .lookup-form .app-field { height: 68%; }
+    .lookup-match-list { gap: 1.8rem 0; }
+    .lookup-match-list:has(app-lookup-match) { padding: 0.8rem 0.5rem; }
+    .sn { font-size: 1.2rem; }
+    .st { font-size: 2.5rem; }
+}

@@ -1,5 +1,7 @@
 <section class="chapter-chooser full grid items-center">
-    @for (chapterNum of chapters; track $index) {
-        <app-single-page type="chapter" [chapter-num]="chapterNum" class="pointer" (page-click)="openVerses($event)"></app-single-page>
+    @for (num of chapters; track $index) {
+        <app-single-page type="chapter" class="pointer" (click)="openVerses(num)">
+            <span class="full flex flex-center spectral bold sm">{{ num }}</span>
+        </app-single-page>
     }
 </section>

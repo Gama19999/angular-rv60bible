@@ -1,12 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
-import { BibleService } from '../../shared/services/bible.service';
-import { ReaderService } from '../../shared/services/reader.service';
+import { BackendService } from '../../shared/services/backend.service';
+import { ConfigService } from '../../shared/services/config.service';
+import { StateService } from '../../shared/services/state.service';
 import { SinglePage } from '../../shared/components/single-page/single-page';
-import { BookInfo } from '../../shared/util/app.interfaces';
+import { BookData, Language, NavigationData } from '../../shared/util/app.interfaces';
+import { replace } from '../../shared/util/app.util';
 
 @Component({
   selector: 'app-chapter-chooser',
@@ -15,38 +17,51 @@ import { BookInfo } from '../../shared/util/app.interfaces';
   styleUrl: './chapter-chooser.css',
 })
 export class ChapterChooser implements OnInit, OnDestroy {
+  private readonly route = inject(ActivatedRoute);
+  private readonly titleSrv = inject(Title);
+  private readonly backendSrv = inject(BackendService);
+  private readonly configSrv = inject(ConfigService);
+  private readonly stateSrv = inject(StateService);
   private subs: Subscription[] = [];
-  private bibleId!: string;
+  private versionKey!: string;
   private bookId!: number;
-  book$!: Promise<BookInfo>;
+  lang!: Language;
   chapters!: number[];
 
-  constructor(private bibleSrv: BibleService, private readerSrv: ReaderService, private route: ActivatedRoute, private titleSrv: Title, private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.subs.push(this.route.parent!.params.subscribe(params => {
-      this.bibleId = params['bibleId'].toUpperCase();
-      this.handleReload(this.route.snapshot.params);
+      this.versionKey = params['versionKey'];
+      this.handleReload(this.route.snapshot.params, this.lang);
     }));
-    this.subs.push(this.route.params.subscribe(params => this.handleReload(params)));
+    this.subs.push(this.route.params.subscribe(params => this.handleReload(params, this.lang)));
+    this.subs.push(this.configSrv.language$.subscribe(lang => this.handleReload(this.route.snapshot.params, lang)));
+    this.stateSrv.setCurrentView('chapters');
   }
 
-  private handleReload(params: Params) {
-    this.bookId = +params['bookId'];
-    this.book$ = this.bibleSrv.getBook(this.bookId).then(bookInfo => {
-      this.titleSrv.setTitle(`${this.bibleId.split('-')[1]} | ${bookInfo.abr}.`);
-      this.readerSrv.bibleQuote$.next(bookInfo.name);
-      this.chapters = Array.from({ length: bookInfo.chapterCount }).map((_, idx) => idx + 1);
-      return bookInfo;
+  private handleReload(params: Params, lang: Language) {
+    this.bookId = params['bookId'];
+    this.lang = lang;
+    this.backendSrv.getBook(this.bookId).then(book => {
+      this.setTitle(book);
+      this.chapters = Array.from({ length: book.chapterCount }).map((_, idx) => idx + 1);
     });
   }
 
-  openVerses(chapterNum: number) {
-    this.router.navigate([chapterNum, 'verses'], { relativeTo: this.route });
+  private setTitle(book: BookData) {
+    const titleStr = this.lang.str.chapters.title;
+    const title = replace(titleStr, this.versionKey.toUpperCase(), book.name);
+    this.titleSrv.setTitle(title);
+    this.stateSrv.bibleQuote$.next(book.name);
+  }
+
+  openVerses(chapterId: number) {
+    const navData: NavigationData = { versionKey: this.versionKey, bookId: this.bookId, chapterId: chapterId };
+    this.stateSrv.navigate('verses', navData);
   }
 
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe());
-    this.readerSrv.bibleQuote$.next('');
   }
 }
