@@ -9,14 +9,14 @@ export const environment = {
     },
     appContact: {
         developer: 'GAMARS',
-        contact: 'https://bit.ly/4sNldOD',
+        contact: 'https://github.com/Gama19999',
         company: 'Serial30',
         siteUrl: 'http://127.0.0.1:8001/',
         electronGit: 'https://github.com/Gama19999/electron-rv60bible.git',
         cordovaGit: 'https://github.com/Gama19999/cordova-rv60bible.git',
     },
     api: {
-        root: 'http://127.0.0.1:10070',
+        root: 'http://127.0.0.1:12496',
         getRoot: () => environment.api.root,
         versions: () => environment.api.getRoot() + '/versions',
         getVersion: (versionKey: string) => `${environment.api.getRoot()}/versions/${versionKey}`,

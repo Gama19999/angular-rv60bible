@@ -10,7 +10,7 @@
             </div>
         }
     </app-single-page>
-    <nav class="verses-navigation flex flex-center">
+    <nav class="verses-navigation flex flex-center" [class.hidden]="hiddenVersesNav$ ? (hiddenVersesNav$ | async) : false">
         <div class="prev-book">
             <app-btn-change-book class="ready blur-base" [class.disabled]="!verseViewerChange.prevBook?.bookId"
                 [class.pointer]="verseViewerChange.prevBook?.bookId" direction="prev"

@@ -1,10 +1,11 @@
 <menu class="context-menu blur-base grid items-center martel">
     <span class="close-mark pointer c2 r1" (click)="closeMenu()">&#10008;</span>
     @if (data.verse) {
-        <li class="pointer c12 r1" (click)="copy()">{{ lang.str.menu.copy }}</li>
-        <li class="pointer c12 r2" (click)="toggleFavourite()">{{ +data.verse.isFavourite ? lang.str.menu.removeFavourite : lang.str.menu.addFavourite }}</li>
+        <span class="verse-quote martel bold c12 r1">{{ verseQuote }}</span>
+        <li class="pointer c12 r2" (click)="copy()">{{ lang.str.menu.copy }}</li>
+        <li class="pointer c12 r3" (click)="toggleFavourite()">{{ +data.verse.isFavourite ? lang.str.menu.removeFavourite : lang.str.menu.addFavourite }}</li>
         @if (!+data.verse.isFavourite) {
-            <li class="colors pointer flex full-w c12 r3">
+            <li class="colors pointer flex full-w c12 r4">
                 <span class="full-w" (click)="hiddenColors = false">{{ lang.str.menu.color }}</span>
                 @if (!hiddenColors) {
                     <input type="button" [value]="data.verse.color === 'color1' ? '✘' : ''" class="btn-color pointer color1" (click)="setColor('color1')">
@@ -14,7 +15,7 @@
                 }
             </li>
         }
-        <li class="reports no-hover flex full-w c12" [class]="{'r4': !+data.verse.isFavourite, 'r3': +data.verse.isFavourite}">
+        <li class="reports no-hover flex full-w c12" [class]="{'r4': +data.verse.isFavourite, 'r5': !+data.verse.isFavourite}">
             <input type="button" class="app-button btn-report pointer martel" [value]="lang.str.menu.wrongContent" (click)="reportVerse(1)">
         </li>
     } @else {

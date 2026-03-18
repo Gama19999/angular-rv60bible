@@ -12,7 +12,7 @@ declare global {
             requestDisplaySleep: (like?: string) => Promise<string>,
         };
         /** API to comunicate with Apache Cordova (Android app) */
-        apacheCdv: { // TODO refactor method return type
+        cordovaAPI: { // TODO refactor method return type
             versions: () => Promise<BibleData[]>,
             getVersion: (versionId: string) => Promise<BibleData[]>,
             books: (versionId: string) => Promise<BookData[]>,
@@ -24,7 +24,7 @@ declare global {
             updateColor: (versionId: string, favouriteId: number, verse: VerseData) => Promise<UpdateResp>, // TODO update method signature
             lookup: (versionId: string, lookupValue: LookupValue) => Promise<LookupResp[]>, // TODO update method signature
             addReport: (clientReport: ClientReport) => Promise<InsertResp>,
-            defragment: () => Promise<UpdateResp>, // TODO update method signature
+            defragment: () => Promise<UpdateResp>, // TODO add this method to cordova
         };
     }
 }

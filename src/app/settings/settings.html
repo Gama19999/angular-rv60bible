@@ -45,9 +45,22 @@
             <a [href]="appContact.cordovaGit" target="_blank" class="app-link">GitHub</a>&nbsp; o en&nbsp;
             <a [href]="appContact.siteUrl" target="_blank" class="app-link">{{ appContact.company }}</a>
         </span>
-        <span class="app-version spectral italic ss">{{ appInfo.version }}</span>
-        <span class="app-defragment app-link pointer spectral italic ss" (click)="defragment()">
+        <span class="app-defragment app-link pointer spectral ss" (click)="defragment()">
             {{ lang.str.settings.defragment.label }}
         </span>
+        <span class="app-version spectral italic ss">&mdash;&nbsp; {{ appInfo.version }} &nbsp;&mdash;</span>
+        <span class="app-resources app-link pointer spectral ss" (click)="resourcesOn = true">{{ lang.str.settings.resources.label }}</span>
     </div>
 </div>
+@if (resourcesOn) {
+    <div class="resources grid items-center full martel ss">
+        <span class="close-mark pointer c1 r1" (click)="resourcesOn = false">&#10008;</span>
+        <span class="prompt martel italic bold c1 r1">{{ lang.str.settings.resources.prompt }}</span>
+        @for (resource of lang.str.settings.resources.list | keyvalue; track $index) {
+            <div class="flex flex-center">
+                <span class="bible-key">{{ resource.key.toString().toUpperCase() }}</span>
+                <span class="full-w">{{ resource.value }}</span>
+            </div>
+        }
+    </div>
+}

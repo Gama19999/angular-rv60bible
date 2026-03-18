@@ -7,7 +7,7 @@
     position: relative;
     right: 7%;
     padding-top: 1rem;
-    text-shadow: -3px -3px var(--quote-shadow);
+    text-shadow: -3px -3px var(--quote-shadow-color);
     text-transform: uppercase;
 }
 .app-logo {
@@ -69,7 +69,7 @@
 @media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
     .search {
         grid-template-columns: 100%;
-        grid-template-rows: 10% 10% 1fr 10%;
+        grid-template-rows: 8% 8% 8% 1fr 10%;
         padding: 0.5rem;
     }
     .search > * {
@@ -77,18 +77,27 @@
         justify-self: center;
     }
     .app-name {
-        position: relative;
         left: 1rem;
-        padding-top: 0;
-        text-shadow: -2px -2px var(--quote-shadow);
+        padding-top: 0.5rem;
     }
     .app-logo {
         left: -40%;
         scale: 0.09;
     }
-    .app-field, .lookup-match-list { width: 95%; }
-    .app-field { padding: 0.5rem; }
-    .lookup-form { grid-template-rows: 15% 1fr; }
+    .lookup-filters {
+        grid-row: 2 / 4;
+        align-self: initial;
+        gap: 1rem 0;
+    }
+    .lookup-mode {
+        padding: 0.5rem;
+        max-width: initial;
+    }
+    .lookup-form { 
+        grid-row: 4;
+        grid-template-rows: 15% 1fr;
+    }
+    .lookup-filters, .app-field, .lookup-mode, .lookup-match-list { width: 100%; }
     .lookup-form .app-field { height: 68%; }
     .lookup-match-list { gap: 1.8rem 0; }
     .lookup-match-list:has(app-lookup-match) { padding: 0.8rem 0.5rem; }

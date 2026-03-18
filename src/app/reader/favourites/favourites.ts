@@ -42,6 +42,7 @@ export class Favourites implements OnInit, OnDestroy {
     this.subs.push(this.stateSrv.reloadVerses$.subscribe(() => this.favourites$ = this.backendSrv.favourites()));
     this.subs.push(this.configSrv.language$.subscribe(lang => this.setTitle(lang)));
     this.subs.push(this.configSrv.verseFontSize$.subscribe(vfs => this.verseFontSize = vfs));
+    this.subs.push(this.stateSrv.closeVerseMenu$.subscribe(_ => this.menuOpen = false));
     this.stateSrv.setCurrentView('favourites');
   }
 
@@ -55,6 +56,7 @@ export class Favourites implements OnInit, OnDestroy {
 
   openMenu(evt: PointerEvent, verse: FavouriteData) {
     if (this.stateSrv.settingsOn$.value) return;
+    this.stateSrv.hiddenBibles$.next(true);
     this.menuData = getMenuData(evt, verse);
     this.menuOpen = true;
   }

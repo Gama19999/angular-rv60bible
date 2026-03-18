@@ -77,9 +77,10 @@ export const en = {
         defragment: {
             label: 'Defragment',
         },
-        rights: {
-            resources: {
-                label: 'Biblical resources authorship belongs to their original creators',
+        resources: {
+            label: 'Resources' ,
+            prompt: 'Biblical resources authorship belongs to their original creators.',
+            list: {
                 esv: 'English Standard Version. Text Edition: 2016. Copyright © 2001 by Crossway Bibles.',
                 niv: 'New International Version. Copyright © 1978, 1984, 2011 by Biblica, Inc.® All rights reserved worldwide.',
                 nkjv: 'The Holy Bible, New King James Version, Copyright © 1982 Thomas Nelson.',

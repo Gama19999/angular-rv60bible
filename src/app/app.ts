@@ -70,7 +70,9 @@ export class App implements OnInit, OnDestroy {
   }
 
   goto(view: AppView) {
+    this.stateSrv.hiddenBibles$.next(true);
     this.stateSrv.closeVerseMenu$.next();
+    this.stateSrv.hiddenVersesNav$?.next(true);
     const versionKey = this.backendSrv.versionKey$.value;
     const bookId = this.route.firstChild?.firstChild?.snapshot.params['bookId'];
     const navData: NavigationData = { versionKey: versionKey, bookId: bookId };

@@ -1,9 +1,17 @@
 {
   "name": "angular-rv60bible",
   "version": "3.0.0",
+  "description": "Biblia multiversion (LBLA, NVI, PDT, RV20, RV60, RVC, ESV, NIV, NKJV) desarrollada como SPA para web, con arquitectura de codificacion para Angular",
+  "license": "ISC",
+  "author": {
+    "name": "GAMARS",
+    "email": "gama.rios0110@gmail.com",
+    "url": "https://github.com/Gama19999"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "open": "ng serve --host 0.0.0.0",
     "build-electron": "ng build --configuration electron --base-href www",
     "build-cordova": "ng build --configuration cordova",
     "watch": "ng build --watch --configuration development",

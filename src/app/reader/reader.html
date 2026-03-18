@@ -1,7 +1,6 @@
 <section class="reader full grid items-center">
-    <app-logo class="logo c1 r1 pointer" (click)="gotoSearch()"></app-logo>
-    <div class="bible-info blur-base c2 r1 martel bold sn pointer" [title]="`rev. ${(version$ | async)?.year}`"
-        (click)="toggleBibleList()">
+    <app-logo class="logo c1 r1 pointer" (click)="toggleBibleList()"></app-logo>
+    <div class="bible-info blur-base c2 r1 martel bold sn" [title]="`rev. ${(version$ | async)?.year}`">
         {{ (version$ | async)?.name }}
     </div>
     <div class="bible-versions grid items-center" [class.hidden]="hiddenBibles">
@@ -14,8 +13,9 @@
             </span>
         }
     </div>
-    <div class="bible-quote blur-base c2 r1 martel bold"
-        [style.margin-right.%]="viewTrack.current === 'books' ? '-3.5' : viewTrack.current === 'verses' ? '2.5' : '0'">
+    <div class="bible-quote blur-base c2 r1 martel bold" [class.pointer]="isCordova && viewTrack.current === 'verses'"
+        [style.margin-right.%]="viewTrack.current === 'books' ? '-3.5' : viewTrack.current === 'verses' ? '2.5' : '0'"
+        (click)="toggleVersesNav()">
         {{ bibleQuote$ | async }}
     </div>
     <router-outlet></router-outlet>

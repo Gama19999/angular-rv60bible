@@ -37,7 +37,7 @@ export class BackendService {
             error: failure => reject(failure)
           });
         });
-      case 'cordova': return await window.apacheCdv.versions();
+      case 'cordova': return await window.cordovaAPI.versions();
       default: return Promise.reject();
     }
   }
@@ -55,7 +55,7 @@ export class BackendService {
             error: failure => reject(failure)
           });
         });
-      case 'cordova': return (await window.apacheCdv.getVersion(this.versionKey))[0]; // TODO Refactor this response - wft ()[0] ?????
+      case 'cordova': return (await window.cordovaAPI.getVersion(this.versionKey))[0]; // TODO Refactor this response - wft ()[0] ?????
       default: return Promise.reject();
     }
   }
@@ -70,7 +70,7 @@ export class BackendService {
             error: failure => reject(failure)
           });
         });
-      case 'cordova': return await window.apacheCdv.books(this.versionKey);
+      case 'cordova': return await window.cordovaAPI.books(this.versionKey);
       default: return Promise.reject();
     }
   }
@@ -85,7 +85,7 @@ export class BackendService {
             error: failure => reject(failure)
           });
         });
-      case 'cordova': return (await window.apacheCdv.getBook(this.versionKey, +bookId))[0]; // TODO Refactor this response - wft ()[0] ?????
+      case 'cordova': return (await window.cordovaAPI.getBook(this.versionKey, +bookId))[0]; // TODO Refactor this response - wft ()[0] ?????
       default: return Promise.reject();
     }
   }
@@ -100,7 +100,7 @@ export class BackendService {
             error: failure => reject(failure)
           });
         });
-      case 'cordova': return await window.apacheCdv.verses(this.versionKey, +bookId, +chapterId);
+      case 'cordova': return await window.cordovaAPI.verses(this.versionKey, +bookId, +chapterId);
       default: return Promise.reject();
     }
   }
@@ -115,7 +115,7 @@ export class BackendService {
             error: failure => reject(failure)
           });
         });
-      case 'cordova': return await window.apacheCdv.favourites(this.versionKey);
+      case 'cordova': return await window.cordovaAPI.favourites(this.versionKey);
       default: return Promise.reject();
     }
   }
@@ -130,7 +130,7 @@ export class BackendService {
             error: failure => reject(failure)
           });
         });
-      case 'cordova': return await window.apacheCdv.addFavourite(this.versionKey, verse);
+      case 'cordova': return await window.cordovaAPI.addFavourite(this.versionKey, verse);
       default: return Promise.reject();
     }
   }
@@ -145,7 +145,7 @@ export class BackendService {
             error: failure => reject(failure)
           });
         });
-      case 'cordova': return await window.apacheCdv.removeFavourite(this.versionKey, +favouriteId);
+      case 'cordova': return await window.cordovaAPI.removeFavourite(this.versionKey, +favouriteId);
       default: return Promise.reject();
     }
   }
@@ -160,7 +160,7 @@ export class BackendService {
             error: failure => reject(failure)
           });
         });
-      case 'cordova': return await window.apacheCdv.updateColor(this.versionKey, +verse.favouriteId, verse);
+      case 'cordova': return await window.cordovaAPI.updateColor(this.versionKey, +verse.favouriteId, verse);
       default: return Promise.reject();
     }
   }
@@ -176,7 +176,7 @@ export class BackendService {
             error: failure => reject(failure)
           });
         });
-      case 'cordova': return await window.apacheCdv.lookup(this.versionKey, value);
+      case 'cordova': return await window.cordovaAPI.lookup(this.versionKey, value);
       default: return Promise.reject();
     }
   }
@@ -191,7 +191,7 @@ export class BackendService {
             error: failure => reject(failure)
           });
         });
-      case 'cordova': return await window.apacheCdv.addReport(report);
+      case 'cordova': return await window.cordovaAPI.addReport(report);
       default: return Promise.reject();
     }
   }
@@ -206,7 +206,7 @@ export class BackendService {
             error: failure => reject(failure)
           });
         });
-      case 'cordova': return await window.apacheCdv.defragment();
+      case 'cordova': return await window.cordovaAPI.defragment();
       default: return Promise.reject();
     }
   }

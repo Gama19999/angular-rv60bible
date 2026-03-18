@@ -11,8 +11,34 @@
     font-weight: bold;
 }
 .app-button { color: var(--onTertiary); }
-#theme, #font-size, #tags, #scroll-behavior, #display-sleep, .app-link, .app-version { color: var(--settings-btn-color); }
+#theme, #font-size, #tags, #scroll-behavior, #display-sleep, .app-link, .app-version, .bible-key { color: var(--settings-btn-color); }
 .footer { gap: 0 0.5rem; }
 .app-name, .app-developer, .app-windows, .app-android { text-align: center; }
 .app-link { text-decoration: none; }
 .app-link:hover { text-decoration: underline; }
+.resources {
+    position: absolute;
+    z-index: 40;
+    top: 0;
+    background-color: var(--tertiary);
+    border-radius: 10px 10px 0 0;
+    padding: 0.5rem 1rem;
+    color: var(--onTertiary);
+    text-align: center;
+    gap: 1rem 0;
+    overflow-y: auto;
+}
+.resources .close-mark {
+    position: fixed;
+    top: 40.5%;
+    right: 15.5%;
+}
+.resources .prompt {
+    padding: 0 2rem;
+}
+@media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
+    .resources .close-mark {
+        top: 50%;
+        right: 2%;
+    }
+}

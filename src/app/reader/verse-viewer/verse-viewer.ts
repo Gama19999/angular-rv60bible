@@ -2,7 +2,7 @@ import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/co
 import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { BackendService } from '../../shared/services/backend.service';
@@ -33,6 +33,7 @@ export class VerseViewer implements OnInit, AfterViewInit, OnDestroy {
   private chapterId!: number;
   private bookName!: string;
   verses$!: Promise<VerseData[]>;
+  hiddenVersesNav$: BehaviorSubject<boolean> | undefined;
   lang!: Language;
   verseFontSize!: number;
   verseViewerChange: VerseViewerChange = {};
@@ -54,6 +55,7 @@ export class VerseViewer implements OnInit, AfterViewInit, OnDestroy {
     this.subs.push(this.configSrv.language$.subscribe(lang => this.handleReload(this.route.snapshot.params, lang)));
     this.subs.push(this.configSrv.verseFontSize$.subscribe(vfs => this.verseFontSize = vfs));
     this.subs.push(this.stateSrv.closeVerseMenu$.subscribe(_ => this.menuOpen = false));
+    this.hiddenVersesNav$ = this.stateSrv.hiddenVersesNav$;
     this.stateSrv.setCurrentView('verses');
   }
 
@@ -114,6 +116,8 @@ export class VerseViewer implements OnInit, AfterViewInit, OnDestroy {
 
   openMenu(evt: PointerEvent, verse: VerseData) {
     if (this.stateSrv.settingsOn$.value) return;
+    this.stateSrv.hiddenBibles$.next(true);
+    this.stateSrv.hiddenVersesNav$?.next(true);
     this.menuData = getMenuData(evt, verse);
     this.menuOpen = true;
   }

@@ -1,11 +1,13 @@
 import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 import { BackendService } from '../../services/backend.service';
 import { ConfigService } from '../../services/config.service';
 import { StateService } from '../../services/state.service';
-import { ClientReport, Language, MenuData, VerseData } from '../../util/app.interfaces';
+import { TrimTagPipe } from '../../pipes/trim-tag.pipe';
+import { ClientReport, FavouriteData, Language, MenuData, VerseData } from '../../util/app.interfaces';
 import { getTargetHashtag } from '../../util/app.util';
 
 @Component({
@@ -13,14 +15,18 @@ import { getTargetHashtag } from '../../util/app.util';
   imports: [],
   templateUrl: './context-menu.html',
   styleUrl: './context-menu.css',
+  providers: [TrimTagPipe],
 })
 export class ContextMenu implements OnInit, OnDestroy {
+  private readonly titleSrv = inject(Title);
   private readonly backendSrv = inject(BackendService);
   private readonly configSrv = inject(ConfigService);
   private readonly stateSrv = inject(StateService);
+  private readonly trim = inject(TrimTagPipe);
   private subs: Subscription[] = [];
   lang!: Language;
   hiddenColors = true;
+  verseQuote!: string;
   @Input('data') data!: MenuData;
   @Output('close') close = new EventEmitter<void>();
 
@@ -28,6 +34,14 @@ export class ContextMenu implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs.push(this.configSrv.language$.subscribe(lang => this.lang = lang));
+    this.verseQuote = this.getVerseQuote();
+  }
+
+  private getVerseQuote(): string {
+    if (this.stateSrv.viewTrack$.value.current === 'verses')
+      return this.titleSrv.getTitle().split('|')[1].trim().concat(`:${this.data.verse?.verseOrdinal}`);
+    const favourite = this.data.verse as FavouriteData;
+      return `${this.trim.transform(favourite.bookName, 6)} ${favourite.chapterId}:${favourite.verseOrdinal}`;
   }
 
   closeMenu() {
@@ -95,7 +109,7 @@ export class ContextMenu implements OnInit, OnDestroy {
 
   openModal(as: string) {
     this.closeMenu();
-    throw new Error('Not implemented', { cause: 'Missing component with modal for error or feedback' });
+    throw new Error('Not implemented', { cause: `Missing component with modal for ${as}`});
   }
 
   ngOnDestroy(): void {

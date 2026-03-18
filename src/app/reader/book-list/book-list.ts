@@ -28,7 +28,7 @@ export class BookList implements OnInit, AfterViewInit, OnDestroy {
   private versionKey!: string;
   books$!: Promise<BookData[]>;
   lang!: Language;
-  isCordova: boolean = environment.appInfo.platform === 'cordova';
+  isCordova = environment.appInfo.platform === 'cordova';
 
   @ViewChild('bookList') bookList!: ElementRef<HTMLElement>;
 

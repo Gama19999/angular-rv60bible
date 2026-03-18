@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, KeyValuePipe } from '@angular/common';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { environment } from '../../environments/environment';
@@ -11,7 +11,7 @@ import { Theme } from '../shared/util/app.types';
 
 @Component({
   selector: 'app-settings',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, KeyValuePipe],
   templateUrl: './settings.html',
   styleUrl: './settings.css',
 })
@@ -29,6 +29,7 @@ export class Settings implements OnInit, OnDestroy {
   viewTrack$!: BehaviorSubject<ViewTrack>;
   appInfo = environment.appInfo;
   appContact = environment.appContact;
+  resourcesOn = false;
 
   constructor() { }
 

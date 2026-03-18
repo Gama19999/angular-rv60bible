@@ -19,7 +19,7 @@ app-single-page {
 @media screen and (hover: hover) and (pointer: fine) { /* PC with mouse */
     .verse-container:focus {
         text-decoration-line: underline;
-        text-decoration-color: var(--quote-shadow);
+        text-decoration-color: var(--quote-shadow-color);
         text-decoration-style: dashed;
         text-decoration-thickness: 5px;
     }

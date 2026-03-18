@@ -13,3 +13,16 @@
     }
     app-btn-books, app-btn-chapters, app-btn-verses, app-btn-search, app-btn-favourites, app-btn-config { scale: 0.8; }
 }
+@media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
+    .navigation {
+        flex-flow: row wrap;
+        top: auto;
+        left: 0;
+        bottom: 0;
+        height: max-content;
+        width: 100%;
+    }
+    .navigation.back-light {
+        background-size: 100%;
+    }
+}

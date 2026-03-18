@@ -2,8 +2,9 @@ import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angula
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 
+import { environment } from '../../environments/environment';
 import { BackendService } from '../shared/services/backend.service';
 import { ConfigService } from '../shared/services/config.service';
 import { StateService } from '../shared/services/state.service';
@@ -29,7 +30,8 @@ export class Reader implements OnInit, OnDestroy {
   bibles$!: Promise<BibleData[]>;
   bibleQuote$!: Subject<string>;
   viewTrack!: ViewTrack;
-  hiddenBibles = true;
+  hiddenBibles!: boolean;
+  isCordova = environment.appInfo.platform === 'cordova';
   
   constructor() { }
 
@@ -41,14 +43,15 @@ export class Reader implements OnInit, OnDestroy {
     }));
     this.subs.push(this.configSrv.language$.subscribe(lang => this.lang = lang));
     this.subs.push(this.stateSrv.viewTrack$.subscribe(vt => { this.viewTrack = vt; this.cd.detectChanges(); }));
+    this.subs.push(this.stateSrv.hiddenBibles$.subscribe(hb => this.hiddenBibles = hb));
     this.bibleQuote$ = this.stateSrv.bibleQuote$;
     this.bibles$ = this.backendSrv.versions();
   }
 
-  gotoSearch() { this.stateSrv.navigate('search'); }
-
   toggleBibleList() {
+    if (this.stateSrv.settingsOn$.value) return;
     this.hiddenBibles = !this.hiddenBibles;
+    this.stateSrv.hiddenVersesNav$?.next(true);
     this.stateSrv.closeVerseMenu$.next();
   }
 
@@ -59,6 +62,15 @@ export class Reader implements OnInit, OnDestroy {
     const hash = this.route.firstChild?.snapshot.fragment;
     const navData: NavigationData = { versionKey: vk, bookId: bookId, chapterId: chapterId, hash: hash ?? undefined };
     this.stateSrv.navigate(this.viewTrack.current, navData);
+  }
+
+  toggleVersesNav() {
+    if (this.isCordova && this.viewTrack.current === 'verses' && !this.stateSrv.settingsOn$.value) {
+      this.stateSrv.hiddenBibles$.next(true);
+      this.stateSrv.closeVerseMenu$.next();
+      const state = this.stateSrv.hiddenVersesNav$?.value;
+      this.stateSrv.hiddenVersesNav$?.next(!state);
+    }
   }
 
   ngOnDestroy(): void {
