@@ -88,7 +88,7 @@ export class VerseViewer implements OnInit, AfterViewInit, OnDestroy {
       const target = document.getElementById(hashtag);
       target?.scrollIntoView();
       target?.focus();
-      if (environment.appInfo.platform !== 'cordova') setTimeout(() => target?.blur(), 5000);
+      if (environment.appInfo.platform !== 'android') setTimeout(() => target?.blur(), 5000);
     }, 500);
   }
 

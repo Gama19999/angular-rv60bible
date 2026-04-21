@@ -6,7 +6,7 @@
     [attr.data-verse-ordinal]="data.verseOrdinal"
     (click)="openMatch()">
     <span class="martel bold">
-        {{ data.bookName }} {{ data.chapterId }}{{ data.verseOrdinal ? ':' + data.verseOrdinal : '' }}
+        {{ data.bookName }} {{ data.chapterId ? data.chapterId : '' }}{{ data.verseOrdinal ? ':' + data.verseOrdinal : '' }}
     </span>
     <span class="match-text">{{ data.text }}</span>
 </div>

@@ -10,3 +10,6 @@
     overflow: hidden;
     text-overflow: clip;
 }
+@media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
+    .times { font-weight: bold; }
+}

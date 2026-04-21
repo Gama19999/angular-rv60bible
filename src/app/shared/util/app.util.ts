@@ -46,7 +46,7 @@ export function normalize(str: string): string {
 export function openTargetWith(el: HTMLElement, versionKey: string, stateSrv: StateService) {
   const { bookName, verseId, chapterId } = el.dataset;
   const navData: NavigationData = { ...el.dataset, versionKey: versionKey };
-  if (verseId) {
+  if (verseId ? +verseId : verseId) {
     navData.hash = getTargetHashtag(bookName!, verseId!);
     stateSrv.navigate('verses', navData);
   } else {

@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
+import { environment } from '../../../environments/environment';
 import { BackendService } from '../../shared/services/backend.service';
 import { ConfigService } from '../../shared/services/config.service';
 import { StateService } from '../../shared/services/state.service';
@@ -27,6 +28,7 @@ export class ChapterChooser implements OnInit, OnDestroy {
   private bookId!: number;
   lang!: Language;
   chapters!: number[];
+  isAndroid = environment.appInfo.platform === 'android';
 
   constructor() { }
 

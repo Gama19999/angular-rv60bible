@@ -13,7 +13,7 @@
     "start": "ng serve",
     "open": "ng serve --host 0.0.0.0",
     "build-electron": "ng build --configuration electron --base-href www",
-    "build-cordova": "ng build --configuration cordova",
+    "build-android": "ng build --configuration android --base-href /www/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

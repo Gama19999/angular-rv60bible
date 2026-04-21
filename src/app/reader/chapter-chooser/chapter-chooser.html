@@ -1,7 +1,7 @@
 <section class="chapter-chooser full grid items-center">
     @for (num of chapters; track $index) {
         <app-single-page type="chapter" class="pointer" (click)="openVerses(num)">
-            <span class="full flex flex-center spectral bold sm">{{ num }}</span>
+            <span class="full flex flex-center spectral bold sm" [class.sm-3]="isAndroid && num > 99">{{ num }}</span>
         </app-single-page>
     }
 </section>

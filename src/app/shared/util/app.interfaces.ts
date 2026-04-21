@@ -67,6 +67,7 @@ export interface VerseData {
 
 export interface FavouriteData extends VerseData {
     bookName: string;
+    bookAbr: string;
     /** Stored **date** as ISO-8601 `YYYY-MM-DD` */ date: string;
 }
 

@@ -51,6 +51,7 @@ export const en = {
     favourites: {
         title: '{versionKey} | Favourites',
         quote: 'Favourites',
+        empty: 'No favourites',
     },
     settings: {
         quote: 'Settings',

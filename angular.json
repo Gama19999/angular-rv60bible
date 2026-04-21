@@ -87,7 +87,7 @@
                 }
               ]
             },
-            "cordova": {
+            "android": {
               "budgets": [
                 {
                   "type": "initial",
@@ -104,7 +104,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.cordova.ts"
+                  "with": "src/environments/environment.android.ts"
                 }
               ]
             },
@@ -126,8 +126,8 @@
             "electron": {
               "buildTarget": "angular-rv60bible:build:electron"
             },
-            "cordova": {
-              "buildTarget": "angular-rv60bible:build:cordova"
+            "android": {
+              "buildTarget": "angular-rv60bible:build:android"
             },
             "development": {
               "buildTarget": "angular-rv60bible:build:development"

@@ -1,4 +1,4 @@
-<section class="book-list full grid items-center" tabindex="-1" #bookList (scrollend)="onEndScroll($event)">
+<section class="book-list full grid items-center" tabindex="-1" #bookList>
     @for (book of books$ | async; track $index) {
         <app-single-page type="book" [id]="getHashtag(book)" (click)="gotoChapters(book.bookId)">
             <span class="book-data spectral bold sm" [class.len-12]="book.name.length > 11" [class.len-15]="book.name.length > 14">{{ book.name }}</span>
@@ -6,7 +6,7 @@
             <span></span>
             <span class="book-data spectral sn">{{ lang.str.books.chapters(book.chapterCount) }}</span>
             <span class="book-data spectral sn" [class.len-12]="lang.str.books.author(parse(book.author)).length > 25">{{ lang.str.books.author(parse(book.author)) }}</span>
-            <span class="book-data spectral sn" [class.len-12]="lang.str.books.written(parse(book.date)).length > 25">{{ lang.str.books.written(parse(book.date)) }}</span>
+            <span class="book-data spectral sn" [class]="{'len-12': lang.str.books.written(parse(book.date)).length > 25, 'len-15': lang.str.books.written(parse(book.date)).length > 40}">{{ lang.str.books.written(parse(book.date)) }}</span>
             <span></span>
             <span class="book-data spectral italic sn">#{{ book.bookOrdinal }}</span>
         </app-single-page>

@@ -6,6 +6,7 @@
     user-select: none;
     scrollbar-width: none;
     scrollbar-color: transparent transparent;
+    -webkit-tap-highlight-color: transparent;
 }
 html, body { height: 100%; }
 :root {
@@ -261,6 +262,7 @@ select.app-field option {
 .martel { font-family: "Martel", sans-serif; }
 .martel.italic { font-family: "Martel", sans-serif; font-style: italic; }
 .martel.bold { font-family: "Martel Black", sans-serif; }
+.times { font-family: "Times New Roman", sans-serif; }
 .st { font-size: 5rem; } 
 .sm {
     font-size: 3rem;

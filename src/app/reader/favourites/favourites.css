@@ -14,3 +14,10 @@ app-single-page {
     margin-left: 1rem;
     text-shadow: none !important;
 }
+@media screen and (max-width: 600px) and (max-height: 680px) { /***** MOBILE SCREEN VIEW (free-form) *****/
+    app-single-page {
+        max-height: 97%;
+        height: 97%;
+        align-self: self-start;
+    }
+}

@@ -44,10 +44,7 @@ export class ConfigService {
 
   private setupElectron() {
     if (environment.appInfo.platform === 'electron')
-      window.electronAPI.requestDisplaySleep().then(like => {
-        this.displayCanSleep$ = new BehaviorSubject(like === 'asleep');
-        console.log('Angular — Display is', like);
-      });
+      window.electronAPI.requestDisplaySleep().then(like => this.displayCanSleep$ = new BehaviorSubject(like === 'asleep'));
   }
 
   toggleTheme() {
@@ -84,10 +81,7 @@ export class ConfigService {
   toggleDisplaySleep() {
     if (environment.appInfo.platform === 'electron') {
       const like = this.displayCanSleep$?.value ? 'awake' : 'asleep';
-      window.electronAPI.requestDisplaySleep(like).then(like => {
-        this.displayCanSleep$?.next(like === 'asleep');
-        console.log('Angular — Display is', like);
-      });
+      window.electronAPI.requestDisplaySleep(like).then(like => this.displayCanSleep$?.next(like === 'asleep'));
     }
   }
 }

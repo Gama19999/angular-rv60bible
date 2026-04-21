@@ -18,7 +18,7 @@ import { getTargetHashtag, parseCharacterMod, replace } from '../../shared/util/
   templateUrl: './book-list.html',
   styleUrl: './book-list.css',
 })
-export class BookList implements OnInit, AfterViewInit, OnDestroy {
+export class BookList implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly titleSrv = inject(Title);
   private readonly backendSrv = inject(BackendService);
@@ -28,7 +28,7 @@ export class BookList implements OnInit, AfterViewInit, OnDestroy {
   private versionKey!: string;
   books$!: Promise<BookData[]>;
   lang!: Language;
-  isCordova = environment.appInfo.platform === 'cordova';
+  isAndroid = environment.appInfo.platform === 'android';
 
   @ViewChild('bookList') bookList!: ElementRef<HTMLElement>;
 
@@ -49,19 +49,6 @@ export class BookList implements OnInit, AfterViewInit, OnDestroy {
     const title = replace(titleStr, this.versionKey.toUpperCase());
     this.titleSrv.setTitle(title);
     setTimeout(() => this.stateSrv.bibleQuote$.next(this.lang.str.books.quote), 100);
-  }
-
-  ngAfterViewInit(): void {
-    this.subs.push(this.stateSrv.booksScroll$.subscribe(bs => setTimeout(() => {
-      if (this.isCordova) this.bookList.nativeElement.scrollTop = bs;
-      else this.bookList.nativeElement.scrollLeft = bs;
-    }, 100)));
-  }
-
-  onEndScroll(evt: Event) {
-    const el = (evt.target as HTMLElement);
-    const scrolled = this.isCordova ? el.scrollTop : el.scrollLeft;
-    if (scrolled > 100) this.stateSrv.setBooksScroll(scrolled);
   }
 
   getHashtag = (book: BookData) => getTargetHashtag(book.name, book.bookId);

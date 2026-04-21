@@ -11,10 +11,9 @@ import { AppView } from '../util/app.types';
 export class StateService {
   private readonly router = inject(Router);
   private readonly cacheSrv = inject(CacheService);
-  private readonly isCordova = environment.appInfo.platform === 'cordova';
+  private readonly isAndroid = environment.appInfo.platform === 'android';
   viewTrack$: BehaviorSubject<ViewTrack>;
   bibleQuote$: BehaviorSubject<string>;
-  booksScroll$: BehaviorSubject<number>;
   reloadVerses$: Subject<string>;
   closeVerseMenu$: Subject<void>;
   settingsOn$: BehaviorSubject<boolean>;
@@ -24,16 +23,15 @@ export class StateService {
   constructor() {
     this.viewTrack$ = new BehaviorSubject({ previous: 'fade', current: this.cacheSrv.isFadeDone() ? 'search' : 'fade' } as ViewTrack);
     this.bibleQuote$ = new BehaviorSubject('');
-    this.booksScroll$ = new BehaviorSubject(0);
     this.reloadVerses$ = new Subject();
     this.closeVerseMenu$ = new Subject();
     this.settingsOn$ = new BehaviorSubject(false);
     this.hiddenBibles$ = new BehaviorSubject(true);
-    this.setupCordova();
+    this.setupAndroid();
   }
 
-  private setupCordova() {
-    if (this.isCordova) this.hiddenVersesNav$ = new BehaviorSubject(true);
+  private setupAndroid() {
+    if (this.isAndroid) this.hiddenVersesNav$ = new BehaviorSubject(true);
   }
 
   navigate(appView: AppView, params?: NavigationData): void {
@@ -64,9 +62,5 @@ export class StateService {
     const prev = this.viewTrack$.value.current;
     const prevUrl = this.viewTrack$.value.currentUrl;
     this.viewTrack$.next({ previous: prev, previousUrl: prevUrl, current: view, currentUrl: this.router.url });
-  }
-
-  setBooksScroll(scrolled: number) {
-    this.booksScroll$.next(scrolled);
   }
 }

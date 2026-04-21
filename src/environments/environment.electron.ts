@@ -11,9 +11,9 @@ export const environment = {
         developer: 'GAMARS',
         contact: 'https://github.com/Gama19999',
         company: 'Serial30',
-        siteUrl: 'https://serial30here.web.app/projects/rv60bible',
+        siteUrl: 'https://serial30here.firebaseapp.com/projects/rv60bible',
         electronGit: 'https://github.com/Gama19999/electron-rv60bible.git',
-        cordovaGit: 'https://github.com/Gama19999/cordova-rv60bible.git',
+        androidGit: 'https://github.com/Gama19999/android-rv60bible.git',
     },
     api: {
         root: '',

@@ -13,7 +13,7 @@
             </span>
         }
     </div>
-    <div class="bible-quote blur-base c2 r1 martel bold" [class.pointer]="isCordova && viewTrack.current === 'verses'"
+    <div class="bible-quote blur-base c2 r1 martel bold" [class.pointer]="isAndroid && viewTrack.current === 'verses'"
         [style.margin-right.%]="viewTrack.current === 'books' ? '-3.5' : viewTrack.current === 'verses' ? '2.5' : '0'"
         (click)="toggleVersesNav()">
         {{ bibleQuote$ | async }}

@@ -42,7 +42,7 @@ export class App implements OnInit, OnDestroy {
     switch (environment.appInfo.platform) {
       case 'dev': break;
       case 'electron': this.setupElectron(); break;
-      case 'cordova': this.setupCordova(); break;
+      case 'android': this.setupAndroid(); break;
     }
     this.subs.push(this.configSrv.language$.subscribe(lang => this.lang = lang));
     this.theme$ = this.configSrv.theme$;
@@ -58,15 +58,16 @@ export class App implements OnInit, OnDestroy {
     window.electronAPI.getServerAddress().then(address => environment.api.root = address);
   }
 
-  private setupCordova() {
+  private setupAndroid() {
     this.metaSrv.addTag({
       httpEquiv: 'Content-Security-Policy',
-      content: "default-src 'self' https://ssl.gstatic.com; connect-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self';"
+      content: "default-src 'self'; connect-src 'self' http://127.0.0.1:*; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self';"
     });
     this.metaSrv.updateTag({
       name: 'viewport',
-      content: 'user-scalable=yes, initial-scale=1, maximum-scale=3, minimum-scale=1, width=device-width, height=device-height'
+      content: 'user-scalable=yes, initial-scale=1, maximum-scale=2, minimum-scale=1, width=device-width, height=device-height'
     });
+    // Add android JSCustomEvent handlers
   }
 
   goto(view: AppView) {

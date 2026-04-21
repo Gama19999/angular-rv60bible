@@ -3,16 +3,18 @@
     @if (data.verse) {
         <span class="verse-quote martel bold c12 r1">{{ verseQuote }}</span>
         <li class="pointer c12 r2" (click)="copy()">{{ lang.str.menu.copy }}</li>
-        <li class="pointer c12 r3" (click)="toggleFavourite()">{{ +data.verse.isFavourite ? lang.str.menu.removeFavourite : lang.str.menu.addFavourite }}</li>
+        @if (data.verse.color === 'favourite' || data.verse.color === 'normal') {
+            <li class="pointer c12 r3" (click)="toggleFavourite()">
+                {{ +data.verse.isFavourite ? lang.str.menu.removeFavourite : lang.str.menu.addFavourite }}
+            </li>
+        }
         @if (!+data.verse.isFavourite) {
-            <li class="colors pointer flex full-w c12 r4">
-                <span class="full-w" (click)="hiddenColors = false">{{ lang.str.menu.color }}</span>
-                @if (!hiddenColors) {
-                    <input type="button" [value]="data.verse.color === 'color1' ? '✘' : ''" class="btn-color pointer color1" (click)="setColor('color1')">
-                    <input type="button" [value]="data.verse.color === 'color2' ? '✘' : ''" class="btn-color pointer color2" (click)="setColor('color2')">
-                    <input type="button" [value]="data.verse.color === 'color3' ? '✘' : ''" class="btn-color pointer color3" (click)="setColor('color3')">
-                    <input type="button" [value]="data.verse.color === 'color4' ? '✘' : ''" class="btn-color pointer color4" (click)="setColor('color4')">
-                }
+            <li class="colors flex full-w no-hover c12 r4">
+                <span class="full-w">{{ lang.str.menu.color }}</span>
+                <input type="button" [value]="data.verse.color === 'color1' ? '✘' : ''" class="btn-color pointer color1" (click)="setColor('color1')">
+                <input type="button" [value]="data.verse.color === 'color2' ? '✘' : ''" class="btn-color pointer color2" (click)="setColor('color2')">
+                <input type="button" [value]="data.verse.color === 'color3' ? '✘' : ''" class="btn-color pointer color3" (click)="setColor('color3')">
+                <input type="button" [value]="data.verse.color === 'color4' ? '✘' : ''" class="btn-color pointer color4" (click)="setColor('color4')">
             </li>
         }
         <li class="reports no-hover flex full-w c12" [class]="{'r4': +data.verse.isFavourite, 'r5': !+data.verse.isFavourite}">

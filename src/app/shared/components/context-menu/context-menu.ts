@@ -6,7 +6,6 @@ import { environment } from '../../../../environments/environment';
 import { BackendService } from '../../services/backend.service';
 import { ConfigService } from '../../services/config.service';
 import { StateService } from '../../services/state.service';
-import { TrimTagPipe } from '../../pipes/trim-tag.pipe';
 import { ClientReport, FavouriteData, Language, MenuData, VerseData } from '../../util/app.interfaces';
 import { getTargetHashtag } from '../../util/app.util';
 
@@ -15,17 +14,15 @@ import { getTargetHashtag } from '../../util/app.util';
   imports: [],
   templateUrl: './context-menu.html',
   styleUrl: './context-menu.css',
-  providers: [TrimTagPipe],
+  providers: [],
 })
 export class ContextMenu implements OnInit, OnDestroy {
   private readonly titleSrv = inject(Title);
   private readonly backendSrv = inject(BackendService);
   private readonly configSrv = inject(ConfigService);
   private readonly stateSrv = inject(StateService);
-  private readonly trim = inject(TrimTagPipe);
   private subs: Subscription[] = [];
   lang!: Language;
-  hiddenColors = true;
   verseQuote!: string;
   @Input('data') data!: MenuData;
   @Output('close') close = new EventEmitter<void>();
@@ -41,11 +38,10 @@ export class ContextMenu implements OnInit, OnDestroy {
     if (this.stateSrv.viewTrack$.value.current === 'verses')
       return this.titleSrv.getTitle().split('|')[1].trim().concat(`:${this.data.verse?.verseOrdinal}`);
     const favourite = this.data.verse as FavouriteData;
-      return `${this.trim.transform(favourite.bookName, 6)} ${favourite.chapterId}:${favourite.verseOrdinal}`;
+      return `${favourite.bookAbr}. ${favourite.chapterId}:${favourite.verseOrdinal}`;
   }
 
   closeMenu() {
-    this.hiddenColors = true;
     this.close.emit();
   }
 
@@ -66,12 +62,14 @@ export class ContextMenu implements OnInit, OnDestroy {
       const hastag = getTargetHashtag(bookName, this.data.verse.verseId);
       if (modified.isFavourite)
         this.backendSrv.addFavourite(modified).then(resp => {
+          if (environment.appInfo.platform === 'android') { window.androidAPI.showToast(resp.msg); }
           console.log(resp);
           this.stateSrv.reloadVerses$.next(hastag);
           this.closeMenu();
         });
       else
         this.backendSrv.removeFavourite(+modified.favouriteId).then(resp => {
+          if (environment.appInfo.platform === 'android') { window.androidAPI.showToast(resp.msg); }
           console.log(resp);
           this.stateSrv.reloadVerses$.next(hastag);
           this.closeMenu();
@@ -87,6 +85,7 @@ export class ContextMenu implements OnInit, OnDestroy {
     const bookName = (await this.backendSrv.getBook(this.data.verse.bookId)).name
     const hastag = getTargetHashtag(bookName, this.data.verse.verseId);
     this.backendSrv.updateColor(modified).then(resp => {
+      if (environment.appInfo.platform === 'android') { window.androidAPI.showToast(resp.msg); }
       console.log(resp);
       this.stateSrv.reloadVerses$.next(hastag);
       this.closeMenu();
@@ -102,6 +101,7 @@ export class ContextMenu implements OnInit, OnDestroy {
       feedback: this.data.verse?.text ?? comment
     };
     this.backendSrv.addReport(report).then(resp => {
+      if (environment.appInfo.platform === 'android') { window.androidAPI.showToast(resp.msg); }
       console.log(resp);
       this.closeMenu();
     });

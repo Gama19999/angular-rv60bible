@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
+import { environment } from '../../../environments/environment';
 import { BackendService } from '../../shared/services/backend.service';
 import { ConfigService } from '../../shared/services/config.service';
 import { StateService } from '../../shared/services/state.service';
@@ -26,6 +27,7 @@ export class Favourites implements OnInit, OnDestroy {
   private readonly stateSrv = inject(StateService);
   private subs: Subscription[] = [];
   private versionKey!: string;
+  private emptyFavToastShown = false;
   favourites$!: Promise<FavouriteData[]>;
   lang!: Language;
   verseFontSize!: number;
@@ -51,6 +53,14 @@ export class Favourites implements OnInit, OnDestroy {
     const titleStr = this.lang.str.favourites.title;
     const title = replace(titleStr, this.versionKey.toUpperCase());
     this.titleSrv.setTitle(title);
+    if (environment.appInfo.platform === 'android') {
+      this.favourites$.then(data => { 
+        if (data.length == 0 && !this.emptyFavToastShown) {
+          this.emptyFavToastShown = true;
+          window.androidAPI.showToast(lang.str.favourites.empty);
+        }
+      });
+    }
     setTimeout(() => this.stateSrv.bibleQuote$.next(this.lang.str.favourites.quote), 100);
   }
 

@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angula
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BehaviorSubject, Subject, Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { BackendService } from '../shared/services/backend.service';
@@ -31,7 +31,7 @@ export class Reader implements OnInit, OnDestroy {
   bibleQuote$!: Subject<string>;
   viewTrack!: ViewTrack;
   hiddenBibles!: boolean;
-  isCordova = environment.appInfo.platform === 'cordova';
+  isAndroid = environment.appInfo.platform === 'android';
   
   constructor() { }
 
@@ -65,7 +65,7 @@ export class Reader implements OnInit, OnDestroy {
   }
 
   toggleVersesNav() {
-    if (this.isCordova && this.viewTrack.current === 'verses' && !this.stateSrv.settingsOn$.value) {
+    if (this.isAndroid && this.viewTrack.current === 'verses' && !this.stateSrv.settingsOn$.value) {
       this.stateSrv.hiddenBibles$.next(true);
       this.stateSrv.closeVerseMenu$.next();
       const state = this.stateSrv.hiddenVersesNav$?.value;

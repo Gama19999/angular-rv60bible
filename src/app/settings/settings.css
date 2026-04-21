@@ -37,8 +37,9 @@
     padding: 0 2rem;
 }
 @media screen and (max-width: 600px) { /***** MOBILE SCREEN VIEW *****/
+    .close-mark { right: 4%; }
     .resources .close-mark {
         top: 50%;
-        right: 2%;
+        right: 4%;
     }
 }
